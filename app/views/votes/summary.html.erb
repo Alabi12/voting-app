@@ -1,0 +1,11 @@
+<h1>Voting Summary</h1>
+<% @positions.each do |position| %>
+  <h2><%= position.name %></h2>
+  <ul>
+    <% position.candidates.each do |candidate| %>
+      <li>
+        <%= candidate.name %> - <%= candidate.votes.count %> votes
+      </li>
+    <% end %>
+  </ul>
+<% end %>
