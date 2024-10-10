@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  get 'votes/summary'
-  get 'positions/index'
-  get 'positions/show'
-  resources :positions, only: [:index, :show] do
-    resources :candidates, only: :show do
-      post 'vote', on: :member
+  resources :positions do
+    resources :candidates do
+      post 'vote', to: 'votes#vote', as: 'vote'  # This defines the voting route
     end
   end
-  get 'summary', to: 'votes#summary'
-  root 'home#index' 
+
+  get 'votes/summary', to: 'votes#summary', as: 'summary'  # Route for summary
+  root 'home#index'  # Ensure the root points to the home controller
 end

@@ -1,10 +1,11 @@
 <h1>Vote for <%= @position.name %></h1>
+
 <ul>
   <% @candidates.each do |candidate| %>
     <li>
       <img src="<%= candidate.image_url %>" alt="<%= candidate.name %>" />
-      <%= candidate.name %>
-     <%= button_to 'Vote', vote_position_candidate_path(@position, candidate), method: :post %>
+      <%= candidate.name %> - <%= candidate.votes.count %> votes
+      <%= button_to 'Vote', position_candidate_vote_path(@position, candidate), method: :post %>
     </li>
   <% end %>
 </ul>

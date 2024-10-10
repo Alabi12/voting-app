@@ -1,4 +1,11 @@
 <h1>Voting Summary</h1>
+
+<!-- Links to Home and Positions pages -->
+<p>
+  <%= link_to 'Home', root_path %> | 
+  <%= link_to 'Vote for Candidates', positions_path %>
+</p>
+
 <% @positions.each do |position| %>
   <h2><%= position.name %></h2>
   <ul>
@@ -9,3 +16,9 @@
     <% end %>
   </ul>
 <% end %>
+
+<!-- Links to Home and Positions pages at the bottom as well -->
+<p>
+  <%= link_to 'Home', root_path %> | 
+  <%= link_to 'Vote for Candidates', positions_path %>
+</p>

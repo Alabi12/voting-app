@@ -4,8 +4,7 @@ class PositionsController < ApplicationController
   end
 
   def show
-    @position = Position.find(params[:id])
-    @candidates = @position.candidates
+      @position = Position.find(params[:id])
+      @candidates = @position.candidates.includes(:votes)  # Preload votes for candidates
   end
 end
-

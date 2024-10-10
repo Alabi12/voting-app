@@ -1,0 +1,11 @@
+<%= form_with model: @candidate, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :image %>
+  <%= form.file_field :image %>  <!-- File upload for the image -->
+
+  <%= form.hidden_field :position_id, value: @position.id %> <!-- Hidden field for position id -->
+
+  <%= form.submit %>
+<% end %>
