@@ -1,7 +1,7 @@
-<h1>Vote for <%= @position.name %></h1>
+<h1><%= @position.name %> - Candidates</h1>
 
 <ul>
-  <% @candidates.each do |candidate| %>
+  <% @position.candidates.each do |candidate| %>
     <li>
       <img src="<%= candidate.image_url %>" alt="<%= candidate.name %>" />
       <%= candidate.name %> - <%= candidate.votes.count %> votes
@@ -9,3 +9,5 @@
     </li>
   <% end %>
 </ul>
+
+<%= link_to 'Add Candidate', new_position_candidate_path(@position) %>

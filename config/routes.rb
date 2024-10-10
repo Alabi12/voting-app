@@ -5,6 +5,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'votes/summary', to: 'votes#summary', as: 'summary'  # Route for summary
-  root 'home#index'  # Ensure the root points to the home controller
+  get 'votes/summary', to: 'votes#summary', as: 'summary'
+  root 'home#index'
 end
