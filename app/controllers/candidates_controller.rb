@@ -22,6 +22,6 @@ class CandidatesController < ApplicationController
   end
 
   def candidate_params
-    params.require(:candidate).permit(:name, :image_url, :votes_count)
+    params.require(:candidate).permit(:name, :image)  # Allow the image parameter
   end
 end
