@@ -8,9 +8,41 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <style>
+      /* Style for the header with logos */
+      .header {
+        display: flex;
+        justify-content: space-around; /* Space between logos */
+        align-items: center; /* Center logos vertically */
+        width: 100%; /* Full width */
+        padding: 10px 20px; /* Padding for the header */
+        background-color: white; /* Background color for visibility */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        position: fixed; /* Fixes the header at the top */
+        top: 0; /* Aligns the header to the top */
+        left: 0; /* Aligns the header to the left */
+        z-index: 1000; /* Ensures it stays above other content */
+      }
+
+      .logo {
+        width: 70px; /* Maximum width for logos */
+        height: auto; /* Maintain aspect ratio */
+      }
+
+      /* Add padding to the body to avoid content being hidden behind the fixed header */
+      body {
+        padding-top: 100px; /* Adjust based on the header height */
+      }
+    </style>
   </head>
 
   <body>
+    <nav class="header">
+      <%= image_tag 'pcg.png', alt: 'Left Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
+      <%= image_tag 'logo.png', alt: 'Right Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
+    </nav>
+
     <%= yield %>
     <% if notice %>
       <p><%= notice %></p>

@@ -1,24 +1,85 @@
-<h1>Voting Summary</h1>
+<h1 class="summary-title">Voting Summary</h1>
 
 <!-- Links to Home and Positions pages -->
-<p>
-  <%= link_to 'Home', root_path %> | 
-  <%= link_to 'Vote for Candidates', positions_path %>
+<p class="summary-links">
+  <%= link_to 'Home', root_path, class: 'link' %> | 
+  <%= link_to 'Vote for Candidates', positions_path, class: 'link' %>
 </p>
 
 <% @positions.each do |position| %>
-  <h2><%= position.name %></h2>
-  <ul>
-    <% position.candidates.each do |candidate| %>
-      <li>
-        <%= candidate.name %> - <%= candidate.votes.count %> votes
-      </li>
-    <% end %>
-  </ul>
+  <div class="position-section">
+    <h2 class="position-name"><%= position.name %></h2>
+    <ul class="candidate-list">
+      <% position.candidates.each do |candidate| %>
+        <li class="candidate-item">
+          <%= candidate.name %> - <span class="vote-count"><%= candidate.votes.count %> votes</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <!-- Links to Home and Positions pages at the bottom as well -->
-<p>
-  <%= link_to 'Home', root_path %> | 
-  <%= link_to 'Vote for Candidates', positions_path %>
+<p class="summary-links">
+  <%= link_to 'Home', root_path, class: 'link' %> | 
+  <%= link_to 'Vote for Candidates', positions_path, class: 'link' %>
 </p>
+
+<style>
+  .summary-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* Dark text color for better readability */
+  }
+
+  .summary-links {
+    text-align: center; /* Center the links */
+    margin-bottom: 20px; /* Space below the links */
+  }
+
+  .link {
+    text-decoration: none; /* Remove underline from links */
+    color: #007BFF; /* Blue color for links */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+  }
+
+  .link:hover {
+    color: #0056b3; /* Darker blue on hover */
+  }
+
+  .position-section {
+    margin: 20px 0; /* Space above and below each position section */
+    padding: 15px;
+    border: 1px solid #ddd; /* Light border around each position */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background for sections */
+  }
+
+  .position-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333; /* Dark text color */
+  }
+
+  .candidate-list {
+    list-style-type: none; /* Remove bullets from the list */
+    padding: 0; /* Remove padding */
+  }
+
+  .candidate-item {
+    padding: 8px;
+    border-bottom: 1px solid #ddd; /* Divider between candidates */
+    color: #555; /* Darker gray for candidate names */
+  }
+
+  .candidate-item:last-child {
+    border-bottom: none; /* Remove border for the last candidate */
+  }
+
+  .vote-count {
+    color: #888; /* Lighter gray for vote count */
+    font-weight: normal; /* Normal weight for vote count */
+  }
+</style>

@@ -1,10 +1,78 @@
-<h1>Select a Position to Vote</h1>
-<ul>
-  <% @positions.each do |position| %>
-    <li><%= link_to position.name, position_path(position) %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <h1 class="position-title">Select a Position to Vote</h1>
 
-<p>
-  <%= link_to 'Home', root_path %>
-</p>
+  <ul class="position-list">
+    <% @positions.each do |position| %>
+      <li class="position-item">
+        <%= link_to position.name, position_path(position), class: "position-link" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <p class="home-link">
+    <%= link_to 'Home', root_path, class: "home-button" %> 
+  </p>
+</div>
+
+<style>
+
+  .container {
+    text-align: center; /* Center text inside the container */
+  }
+
+  .position-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .position-list {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid with minimum column width */
+    gap: 15px; /* Space between grid items */
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px; /* Limit the width of the list */
+    margin: 0 auto; /* Center the list on the page */
+  }
+
+  .position-item {
+    text-align: center; /* Center the text in the list item */
+  }
+
+  .position-link {
+    display: block; /* Make the link fill the entire grid item */
+    padding: 20px; /* Increased padding for a button-like appearance */
+    background-color: #28a745; /* Green color for position links */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s; /* Transition for hover effects */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+
+  .position-link:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+  }
+
+  .home-link {
+    text-align: center;
+    margin-top: 20px; /* Spacing above the home link */
+  }
+
+  .home-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007BFF; /* Blue color for the home button */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .home-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+</style>
