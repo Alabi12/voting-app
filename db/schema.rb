@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_10_182702) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_12_131144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_182702) do
     t.bigint "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "votes_count"
+    t.integer "vote_count", default: 0, null: false
     t.index ["position_id"], name: "index_candidates_on_position_id"
   end
 
@@ -57,15 +59,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_182702) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   create_table "votes", force: :cascade do |t|
     t.bigint "candidate_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "position_id"
     t.index ["candidate_id"], name: "index_votes_on_candidate_id"
+    t.index ["position_id"], name: "index_votes_on_position_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "candidates", "positions"
   add_foreign_key "votes", "candidates"
+  add_foreign_key "votes", "positions"
+  add_foreign_key "votes", "users"
 end

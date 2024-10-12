@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :positions do
     resources :candidates do
       post 'vote', to: 'votes#vote', as: 'vote'  # This defines the voting route
