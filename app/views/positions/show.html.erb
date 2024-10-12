@@ -11,7 +11,12 @@
       <div class="candidate-info">
         <span class="candidate-name"><%= candidate.name %></span> - 
         <span class="vote-count"><%= candidate.votes.count %> votes</span>
-        <%= button_to 'Vote', position_candidate_vote_path(@position, candidate), method: :post, class: "vote-button" %>
+
+        <% if user_signed_in? && !current_user.voted_for?(@position) %>
+          <%= button_to 'Vote', position_candidate_vote_path(@position, candidate), method: :post, class: "vote-button" %>
+        <% else %>
+          <button class="vote-button" disabled>Voted</button> <!-- Disable button if already voted -->
+        <% end %>
       </div>
     </li>
   <% end %>
@@ -54,7 +59,7 @@
   }
 
   .candidate-image {
-    weight: 100px; /* Set a fixed width for images */
+    width: 100px; /* Set a fixed width for images */
     height: 100px; /* Set a fixed height for images */
     border-radius: 5px; /* Rounded corners for images */
   }
