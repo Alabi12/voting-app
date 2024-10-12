@@ -1,0 +1,12 @@
+<h1>Create Voter</h1>
+
+<%= form_with model: @voter, url: admin_voters_path do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create Voter" %>
+  </div>
+<% end %>

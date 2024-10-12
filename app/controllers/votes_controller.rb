@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!  # Ensure user is logged in before voting
+  before_action :ensure_voter_role
 
   def vote
     candidate = Candidate.find(params[:candidate_id])
@@ -18,6 +19,13 @@ class VotesController < ApplicationController
     end
   end
 
+
+  private
+
+  def ensure_voter_role
+    redirect_to root_path, alert: "You are not authorized to vote." unless current_user.voter?
+  end
+  
   def summary
     @positions = Position.includes(candidates: :votes)  # Preload candidates and their votes
 
