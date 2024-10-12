@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   end
 
   # Admin-specific routes
+  authenticate :user, lambda { |u| u.admin? } do
   namespace :admin do
     resources :voters, only: [:index, :new, :create]  # Admin can manage voters
   end
+end
 
   # Vote summary route
   get 'votes/summary', to: 'votes#summary', as: 'summary'

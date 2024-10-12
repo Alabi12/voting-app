@@ -13,4 +13,8 @@ class User < ApplicationRecord
 
          # Roles: 'admin', 'voter'
   enum role: { admin: 'admin', voter: 'voter' }
+
+  def admin?
+    self.admin
+  end
 end
