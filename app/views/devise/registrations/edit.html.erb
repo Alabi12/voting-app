@@ -1,20 +1,20 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2 class="edit-title">Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'edit-form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email, class: 'label' %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'email-input' %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div class="confirmation-message">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.label :password, class: 'label' %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password", class: 'password-input' %>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
@@ -22,22 +22,128 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation, class: 'label' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'password-input' %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.label :current_password, class: 'label' %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password", class: 'password-input' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", class: 'submit-button' %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3 class="cancel-title">Cancel My Account</h3>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+<div class="cancel-account">
+  Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: 'cancel-button' %>
+  <%= link_to "Back", :back, class: 'back-link' %>
+</div>
 
-<%= link_to "Back", :back %>
+
+<style>
+  /* Style for the edit title */
+  .edit-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
+  .edit-form {
+    max-width: 500px; /* Maximum width of the form */
+    margin: 0 auto; /* Center the form */
+    padding: 20px; /* Padding around the form */
+    background-color: #f9f9f9; /* Light background for the form */
+    border: 1px solid #ddd; /* Light border for the form */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  .field {
+    margin-bottom: 15px; /* Space between fields */
+  }
+
+  .label {
+    display: block; /* Labels as block elements */
+    margin-bottom: 5px; /* Space below the label */
+    font-weight: bold; /* Bold labels */
+    color: #555; /* Darker color for labels */
+  }
+
+  .email-input,
+  .password-input {
+    width: 100%; /* Full width input */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #ccc; /* Light border for inputs */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for input text */
+  }
+
+  .confirmation-message {
+    margin-top: 10px; /* Space above confirmation message */
+    color: #856404; /* Darker color for confirmation message */
+    background-color: #d4edda; /* Light green background */
+    padding: 10px; /* Padding inside the message */
+    border: 1px solid #c3e6cb; /* Border for the message */
+    border-radius: 5px; /* Rounded corners */
+  }
+
+  .submit-button {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Padding inside the button */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+    font-size: 16px; /* Font size for button */
+  }
+
+  .submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .cancel-title {
+    font-size: 24px;
+    margin-top: 30px; /* Space above the title */
+    color: #d9534f; /* Red color for cancel title */
+    text-align: center; /* Center align */
+  }
+
+  .cancel-account {
+    text-align: center; /* Center align */
+    margin-top: 10px; /* Space above cancel account section */
+  }
+
+  .cancel-button {
+    padding: 10px 15px; /* Padding inside cancel button */
+    background-color: #d9534f; /* Red background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+
+  .cancel-button:hover {
+    background-color: #c9302c; /* Darker red on hover */
+  }
+
+  .back-link {
+    display: block; /* Block display for back link */
+    margin-top: 20px; /* Space above back link */
+    text-align: center; /* Center align */
+    color: #007BFF; /* Blue color for link */
+    text-decoration: none; /* Remove underline */
+  }
+
+  .back-link:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+</style>

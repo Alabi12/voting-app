@@ -47,10 +47,11 @@
       }
 
       nav li {
-        display: inline;
+        display: flex;
+        align-items: center;
       }
 
-      nav a {
+      nav a, nav a button {
         text-decoration: none;
         color: #333;
         font-size: 16px;
@@ -59,17 +60,16 @@
         color: white;
         border-radius: 5px;
         transition: background-color 0.3s;
+        border: none; /* Remove default button border */
+        cursor: pointer; /* Change cursor to pointer */
       }
 
-      nav a:hover {
+      nav a:hover, nav a button:hover {
         background-color: #0056b3;
       }
 
       /* Responsive header */
       @media (max-width: 768px) {
-        .header {
-          flex-direction: column;
-        }
 
         nav ul {
           flex-direction: column;
@@ -92,7 +92,23 @@
         margin: 20px auto;
         text-align: center;
       }
+
+      /* Style for button_to specifically */
+      .button {
+        padding: 10px 15px; /* Adjust padding if needed */
+        background-color: #007BFF; /* Button background color */
+        color: white; /* Button text color */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s; /* Smooth background transition */
+      }
+
+      .button:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+      }
     </style>
+
   </head>
 
   <body>
@@ -103,7 +119,7 @@
         <% if user_signed_in? %>
           <ul>
             <li><%= link_to 'Profile', edit_user_registration_path %></li>
-            <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+            <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "button" %></li>
           </ul>
         <% else %>
           <ul>

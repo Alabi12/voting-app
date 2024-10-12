@@ -1,26 +1,99 @@
-<h2>Log in</h2>
+<h2 class="login-title">Log In</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'login-form' }) do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email, class: 'label' %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'email-input' %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.label :password, class: 'label' %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class: 'password-input' %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="field remember-me">
+      <%= f.check_box :remember_me, class: 'remember-checkbox' %>
+      <%= f.label :remember_me, class: 'remember-label' %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "Log in", class: 'submit-button' %>
   </div>
+    <%= render "devise/shared/links" %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+<style>
+  /* Style for the login title */
+  .login-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
+  .login-form {
+    max-width: 400px; /* Maximum width of the form */
+    margin: 0 auto; /* Center the form */
+    padding: 20px; /* Padding around the form */
+    background-color: #f9f9f9; /* Light background for the form */
+    border: 1px solid #ddd; /* Light border for the form */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  .field {
+    margin-bottom: 15px; /* Space between fields */
+  }
+
+  .label {
+    display: block; /* Labels as block elements */
+    margin-bottom: 5px; /* Space below the label */
+    font-weight: bold; /* Bold labels */
+    color: #555; /* Darker color for labels */
+  }
+
+  .email-input,
+  .password-input {
+    width: 100%; /* Full width input */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #ccc; /* Light border for inputs */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for input text */
+  }
+
+  .remember-me {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center the checkbox and label vertically */
+  }
+
+  .remember-checkbox {
+    margin-right: 10px; /* Space between checkbox and label */
+  }
+
+  .submit-button {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Padding inside the button */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+    font-size: 16px; /* Font size for button */
+  }
+
+  .submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  /* Additional styling for error messages, if necessary */
+  .error-message {
+    color: #d9534f; /* Red color for error messages */
+    margin-bottom: 15px; /* Space below error messages */
+    font-weight: bold; /* Bold text for emphasis */
+  }
+</style>

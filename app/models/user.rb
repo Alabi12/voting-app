@@ -4,8 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-      has_many :votes
-      def voted_for?(position)
-        votes.exists?(position: position)
-      end
+         has_many :votes
+         has_many :voted_candidates, through: :votes, source: :candidate
+       
+         def voted_for?(position)
+           voted_candidates.exists?(position: position)
+         end
 end

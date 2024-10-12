@@ -11,7 +11,6 @@
       <div class="candidate-info">
         <span class="candidate-name"><%= candidate.name %></span> - 
         <span class="vote-count"><%= candidate.votes.count %> votes</span>
-
         <% if user_signed_in? && !current_user.voted_for?(@position) %>
           <%= button_to 'Vote', position_candidate_vote_path(@position, candidate), method: :post, class: "vote-button" %>
         <% else %>

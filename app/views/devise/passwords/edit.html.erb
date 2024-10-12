@@ -1,25 +1,86 @@
-<h2>Change your password</h2>
+<h2 class="change-password-title">Change Your Password</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'password-form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= f.hidden_field :reset_password_token %>
 
   <div class="field">
-    <%= f.label :password, "New password" %><br />
+    <%= f.label :password, "New Password", class: 'label' %><br />
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <em class="password-requirement"><%= @minimum_password_length %> characters minimum</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'password-input' %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation, "Confirm New Password", class: 'label' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'password-input' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Change my password" %>
+    <%= f.submit "Change My Password", class: 'submit-button' %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<style>
+  /* Styling for the change password form */
+  .change-password-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .password-form {
+    max-width: 400px; /* Maximum width of the form */
+    margin: 0 auto; /* Center the form */
+    padding: 20px; /* Padding around the form */
+    background-color: #f9f9f9; /* Light background for the form */
+    border: 1px solid #ddd; /* Light border for the form */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  .field {
+    margin-bottom: 15px; /* Space between fields */
+  }
+
+  .label {
+    display: block; /* Labels as block elements */
+    margin-bottom: 5px; /* Space below the label */
+    font-weight: bold; /* Bold labels */
+    color: #555; /* Darker color for labels */
+  }
+
+  .password-input {
+    width: 100%; /* Full width input */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #ccc; /* Light border for inputs */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for input text */
+  }
+
+  .password-requirement {
+    font-size: 12px; /* Smaller font for password requirements */
+    color: #999; /* Lighter color for requirements */
+  }
+
+  .submit-button {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Padding inside the button */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+    font-size: 16px; /* Font size for button */
+  }
+
+  .submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+</style>
