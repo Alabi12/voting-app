@@ -10,4 +10,11 @@ class User < ApplicationRecord
          def voted_for?(position)
            voted_candidates.exists?(position: position)
          end
+
+         # Roles: 'admin', 'voter'
+  enum role: { admin: 'admin', voter: 'voter' }
+
+  def admin?
+    self.admin
+  end
 end

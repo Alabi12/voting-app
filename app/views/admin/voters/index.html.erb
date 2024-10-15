@@ -1,0 +1,20 @@
+<h1>Voters List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @voters.each do |voter| %>
+      <tr>
+        <td><%= voter.email %></td>
+        <td><%= voter.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Add New Voter", new_admin_voter_path %>
