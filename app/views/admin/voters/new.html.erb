@@ -1,12 +1,73 @@
 <h1>Create Voter</h1>
 
-<%= form_with model: @voter, url: admin_voters_path do |f| %>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
 
-  <div class="actions">
-    <%= f.submit "Create Voter" %>
-  </div>
-<% end %>
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .field {
+    margin-bottom: 15px;
+  }
+
+  .field label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .field input[type="text"], .field input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .actions {
+    text-align: center;
+  }
+
+  .actions input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .actions input[type="submit"]:hover {
+    background-color: #218838;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+</style>
+
+<div class="form-container">
+  <%= form_with model: @voter, url: admin_voters_path do |f| %>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email, placeholder: "Enter voter's email" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Create Voter" %>
+    </div>
+  <% end %>
+</div>

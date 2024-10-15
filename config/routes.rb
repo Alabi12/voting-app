@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'candidates/new'
-    get 'candidates/create'
-  end
   # Devise routes for user authentication
   devise_for :users
 
@@ -20,6 +16,7 @@ Rails.application.routes.draw do
 
       # Route for viewing the vote summary
       get 'votes/summary', to: 'votes#summary', as: 'votes_summary'  # Admin can view the vote summary
+      get 'summary/pdf', to: 'votes#summary_pdf', as: 'summary_pdf' # Route for PDF download
       
       # Admin routes for managing candidates
       resources :candidates, only: [:new, :create, :index]  # Admin can create and list candidates

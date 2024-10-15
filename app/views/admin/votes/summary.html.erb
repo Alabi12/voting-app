@@ -1,6 +1,9 @@
 <!-- app/views/admin/votes/summary.html.erb -->
 <h1>Vote Summary</h1>
 
+<!-- Link to Download PDF -->
+<%= link_to 'Download PDF', admin_summary_pdf_path(format: :pdf), class: 'action-link' %>
+
 <!-- Display Total Votes Cast -->
 <p class="total-votes"><strong>Total Votes Cast: <%= @votes.count %></strong></p>
 
@@ -13,18 +16,15 @@
     </tr>
   </thead>
   <tbody>
-    <% @votes.group_by(&:position).each do |position, votes| %>
-      <% if position.present? && votes.any? %>
-        <tr>
-          <td rowspan="<%= votes.count %>"><%= position.name %></td>
-          <td><%= votes.first.candidate.name if votes.first.candidate.present? %></td>
-          <td><%= votes.count %></td>
-        </tr>
-        
-        <% votes[1..-1].each do |vote| %>
+    <% @votes.group_by(&:position).each do |position, position_votes| %>
+      <% if position.present? && position_votes.any? %>
+        <% position_votes.group_by(&:candidate).each_with_index do |(candidate, candidate_votes), index| %>
           <tr>
-            <td><%= vote.candidate.name if vote.candidate.present? %></td>
-            <td><%= votes.count %></td>
+            <% if index == 0 %>
+              <td rowspan="<%= position_votes.group_by(&:candidate).count %>"><%= position.name %></td>
+            <% end %>
+            <td><%= candidate.name if candidate.present? %></td>
+            <td><%= candidate_votes.count %></td>
           </tr>
         <% end %>
       <% end %>
@@ -41,14 +41,10 @@
     const labels = [];
     const dataVotes = [];
 
-    <% @votes.group_by(&:position).each do |position, votes| %>
-      <% if position.present? && votes.any? %>
-        <%
-          # Collecting position names and total votes for the chart
-          total_votes = votes.count
-        %>
-        labels.push("<%= position.name %>");
-        dataVotes.push(<%= total_votes %>);
+    <% @votes.group_by(&:candidate).each do |candidate, votes| %>
+      <% if candidate.present? %>
+        labels.push("<%= candidate.name %>");
+        dataVotes.push(<%= votes.count %>);
       <% end %>
     <% end %>
 
@@ -57,7 +53,7 @@
       data: {
         labels: labels,
         datasets: [{
-          label: 'Total Votes per Position',
+          label: 'Total Votes per Candidate',
           data: dataVotes,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
@@ -77,7 +73,7 @@
           x: {
             title: {
               display: true,
-              text: 'Position'
+              text: 'Candidate'
             }
           }
         }
@@ -86,7 +82,8 @@
   });
 </script>
 
-<%= link_to 'Back to Admin Dashboard', admin_voters_path, class: 'action-link' %>
+<!-- Back to Dashboard Link -->
+<%= link_to 'Dashboard', root_path, class: 'action-link' %>
 
 <style>
   body {
