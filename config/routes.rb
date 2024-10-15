@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'candidates/new'
+    get 'candidates/create'
+  end
+  # Devise routes for user authentication
   devise_for :users
 
   # Positions and Candidates routes for regular users to vote
@@ -8,16 +13,19 @@ Rails.application.routes.draw do
     end
   end
 
-  # Admin-specific routes
+  # Admin-specific routes, authenticated and restricted to admin users
   authenticate :user, lambda { |u| u.admin? } do
-  namespace :admin do
-    resources :voters, only: [:index, :new, :create]  # Admin can manage voters
+    namespace :admin do
+      resources :voters, only: [:index, :new, :create]  # Admin can manage voters
+
+      # Route for viewing the vote summary
+      get 'votes/summary', to: 'votes#summary', as: 'votes_summary'  # Admin can view the vote summary
+      
+      # Admin routes for managing candidates
+      resources :candidates, only: [:new, :create, :index]  # Admin can create and list candidates
+    end
   end
-end
 
-  # Vote summary route
-  get 'votes/summary', to: 'votes#summary', as: 'summary'
-
-  # Root path
+  # Root path for the home page
   root 'home#index'
 end

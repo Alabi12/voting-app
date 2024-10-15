@@ -1,27 +1,27 @@
 <div class="container">
   <h1 class="welcome-title">P.C.G ZIMMERMANN MEMORIAL, NUMGUA</h1>
-  <h2 class="welcome-title">Young People's Guild </h2>
-
+  <h2 class="welcome-title">Young People's Guild</h2>
   <h1>Welcome to the Voting Platform</h1>
 
   <% if current_user %>
     <% if current_user.admin? %>
-      <p>As an admin, you can manage voters:</p>
+      <p>As an admin, you can manage voters, add candidates, and view the summary:</p>
       <%= link_to 'Manage Voters', admin_voters_path, class: 'action-link' %>
+      <%= link_to 'Add Candidate', new_admin_candidate_path, class: 'action-link' %>
+      <%= link_to 'View Admin Summary', admin_votes_summary_path, class: 'action-link' %>
     <% else %>
       <p>Cast your vote here:</p>
       <%= link_to 'Vote Now', positions_path, class: 'action-link' %>
     <% end %>
   <% else %>
-
-  <ul class="options-list">
-    <li class="options-item">
-      <%= link_to 'Vote for Candidates', positions_path, class: "options-link" %>
-    </li>
-    <li class="options-item">
-      <%= link_to 'View Voting Summary', summary_path, class: "options-link" %>
-    </li>
-  </ul>
+    <ul class="options-list">
+      <li class="options-item">
+        <%= link_to 'Vote for Candidates', positions_path, class: 'options-link' %>
+      </li>
+      <li class="options-item">
+        <%= link_to 'View Voting Summary', admin_votes_summary_path, class: 'options-link' %>
+      </li>
+    </ul>
   <% end %>
 </div>
 
@@ -38,19 +38,30 @@
     color: #333;
   }
 
-  .action-link {
+  .action-link, .options-link {
     display: inline-block;
-    margin: 10px 0;
     padding: 10px 20px;
-    background-color: #28a745;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    margin: 10px 0;
+  }
+
+  .action-link {
+    background-color: #28a745;
   }
 
   .action-link:hover {
     background-color: #218838;
+  }
+
+  .options-link {
+    background-color: #007BFF;
+  }
+
+  .options-link:hover {
+    background-color: #0056b3;
   }
 
   .options-list {
@@ -60,19 +71,5 @@
 
   .options-item {
     margin: 10px 0;
-  }
-
-  .options-link {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .options-link:hover {
-    background-color: #0056b3;
   }
 </style>

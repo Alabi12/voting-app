@@ -1,0 +1,37 @@
+<!-- app/views/admin/summary/index.html.erb -->
+<div class="container">
+  <h1>Admin Summary</h1>
+
+  <p>Total Voters: <%= @total_voters %></p>
+  <p>Total Candidates: <%= @total_candidates %></p>
+  <p>Total Votes Cast: <%= @total_votes %></p>
+
+  <h2>Votes by Candidate</h2>
+  <ul>
+    <% @votes_by_candidate.each do |candidate_name, votes| %>
+      <li><strong><%= candidate_name %>:</strong> <%= votes %> votes</li>
+    <% end %>
+  </ul>
+</div>
+
+<style>
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+
+  h1, h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+</style>

@@ -1,0 +1,161 @@
+<!-- app/views/admin/votes/summary.html.erb -->
+<h1>Vote Summary</h1>
+
+<!-- Display Total Votes Cast -->
+<p class="total-votes"><strong>Total Votes Cast: <%= @votes.count %></strong></p>
+
+<table class="vote-summary-table">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Candidate</th>
+      <th>Total Votes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @votes.group_by(&:position).each do |position, votes| %>
+      <% if position.present? && votes.any? %>
+        <tr>
+          <td rowspan="<%= votes.count %>"><%= position.name %></td>
+          <td><%= votes.first.candidate.name if votes.first.candidate.present? %></td>
+          <td><%= votes.count %></td>
+        </tr>
+        
+        <% votes[1..-1].each do |vote| %>
+          <tr>
+            <td><%= vote.candidate.name if vote.candidate.present? %></td>
+            <td><%= votes.count %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- Chart Container -->
+<canvas id="voteChart" width="400" height="200"></canvas>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('voteChart').getContext('2d');
+    const labels = [];
+    const dataVotes = [];
+
+    <% @votes.group_by(&:position).each do |position, votes| %>
+      <% if position.present? && votes.any? %>
+        <%
+          # Collecting position names and total votes for the chart
+          total_votes = votes.count
+        %>
+        labels.push("<%= position.name %>");
+        dataVotes.push(<%= total_votes %>);
+      <% end %>
+    <% end %>
+
+    const voteChart = new Chart(ctx, {
+      type: 'bar', // or 'pie', 'line', etc.
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Total Votes per Position',
+          data: dataVotes,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Votes'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Position'
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+<%= link_to 'Back to Admin Dashboard', admin_voters_path, class: 'action-link' %>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #007BFF; /* Blue color for the header */
+  }
+
+  .total-votes {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .vote-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
+  .vote-summary-table th,
+  .vote-summary-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .vote-summary-table th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+  }
+
+  .vote-summary-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .vote-summary-table tr:hover {
+    background-color: #e9ecef; /* Light grey on hover */
+  }
+
+  canvas {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    background-color: white; /* Background for the chart */
+  }
+
+  .action-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .action-link:hover {
+    background-color: #0056b3;
+  }
+</style>
