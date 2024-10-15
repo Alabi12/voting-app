@@ -4,17 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-         has_many :votes
-         has_many :voted_candidates, through: :votes, source: :candidate
-       
-         def voted_for?(position)
-           voted_candidates.exists?(position: position)
-         end
+  has_many :votes
+  has_many :voted_candidates, through: :votes, source: :candidate
 
-         # Roles: 'admin', 'voter'
+  # Check if a user has voted for a specific position
+  def voted_for?(position)
+    voted_candidates.exists?(position: position)
+  end
+
+  # Roles: 'admin', 'voter'
   enum role: { admin: 'admin', voter: 'voter' }
 
-  def admin?
-    self.admin
-  end
+  # No need for a custom admin? method since Rails already provides one
 end

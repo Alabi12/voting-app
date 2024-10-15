@@ -1,5 +1,63 @@
 <h1>Voters List</h1>
 
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  a:hover {
+    background-color: #0056b3;
+  }
+
+  .action-links {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+
 <table>
   <thead>
     <tr>
@@ -11,10 +69,13 @@
     <% @voters.each do |voter| %>
       <tr>
         <td><%= voter.email %></td>
-        <td><%= voter.created_at %></td>
+        <td><%= voter.created_at.strftime('%B %d, %Y %H:%M') %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to "Add New Voter", new_admin_voter_path %>
+<div class="action-links">
+  <%= link_to "Add New Voter", new_admin_voter_path %>
+  <%= link_to "Dashboard", root_path %>
+</div>

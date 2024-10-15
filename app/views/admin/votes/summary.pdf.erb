@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vote Summary</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Candidate</th>
+          <th>Total Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @votes.group_by(&:position).each do |position, votes| %>
+          <% if position.present? && votes.any? %>
+            <tr>
+              <td rowspan="<%= votes.count %>"><%= position.name %></td>
+              <td><%= votes.first.candidate.name if votes.first.candidate.present? %></td>
+              <td><%= votes.count %></td>
+            </tr>
+            <% votes[1..-1].each do |vote| %>
+              <tr>
+                <td><%= vote.candidate.name if vote.candidate.present? %></td>
+                <td><%= votes.count %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>
