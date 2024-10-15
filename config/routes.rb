@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'render/index'
   # Devise routes for user authentication
   devise_for :users
 
