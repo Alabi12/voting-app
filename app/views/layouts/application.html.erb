@@ -107,6 +107,7 @@
       .button:hover {
         background-color: #0056b3; /* Darker blue on hover */
       }
+
     </style>
 
   </head>
@@ -128,7 +129,7 @@
         <% end %>
       </nav>
 
-      <%= image_tag 'logo.png', alt: 'Right Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
+      <%= image_tag 'logo.png', alt: 'Right Logo', class: 'logo' %>
     </header>
 
   <div class="container">
@@ -139,8 +140,10 @@
     
     <% if notice %>
       <p><%= notice %></p>
-    <% end %>
 
+      
+    <% end %>
+    <%= image_tag 'logowhite.jpg', alt: 'Right Logo', class: 'logo' %>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>
