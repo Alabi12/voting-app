@@ -1,7 +1,7 @@
 databases:
   - name: church_voting_app
     databaseName: church_voting_app
-    user: wolo
+    user: postgres
     plan: free
 services:
   - type: web

@@ -16,6 +16,4 @@ test:
 
 production:
   <<: *default
-  # host: 10.215.212.114
-  port: 5432
-  database: church_voting_app
+  url: <%= ENV['DATABASE_URL'] %>  # Use Render's DATABASE_URL environment variable
