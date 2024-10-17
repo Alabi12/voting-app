@@ -1,21 +1,19 @@
 databases:
-  - name: church_voting_app
-    databaseName: church_voting_app
-    user: church_voting_app
+  - name: postgresql
+    databaseName: postgresql
+    user: wolo
     plan: free
-
 services:
   - type: web
-    name: church_voting_app
+    name: postgresql
     runtime: ruby
     plan: free
-    buildCommand: "./bin/render-build.sh"
-    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
-    startCommand: "bundle exec rails server"
+    buildCommand: bundle install && bundle exec rails db:migrate
+    startCommand: bundle exec puma -C config/puma.rb
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: church_voting_app
+          name: postgresql
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
