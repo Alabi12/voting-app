@@ -1,6 +1,6 @@
 databases:
-  - name: church_voting_app_development
-    databaseName: church_voting_app_development
+  - name: church_voting_app
+    databaseName: church_voting_app
     user: wolo
     plan: free
 services:
@@ -13,7 +13,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: church_voting_app_development
+          name: church_voting_app
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
