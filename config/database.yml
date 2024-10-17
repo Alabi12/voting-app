@@ -9,7 +9,7 @@ development:
   username: postgres
   password: wolo
   host: localhost
-  port: 5433
+  port: 5432
 
 test:
   <<: *default
@@ -17,7 +17,7 @@ test:
   username: postgres
   password: wolo
   host: localhost
-  port: 5433
+  port: 5432
 
 production:
   <<: *default
