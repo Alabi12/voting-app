@@ -1,7 +1,7 @@
 databases:
   - name: postgresql
     databaseName: postgresql
-    user: wolo
+    user: postgres
     plan: free
 services:
   - type: web
