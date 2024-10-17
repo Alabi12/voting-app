@@ -1,29 +1,21 @@
-# config/database.yml
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  host: localhost
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: wolo
   port: 5432
 
 development:
   <<: *default
   database: church_voting_app_development
-  username: postgres
-  password: wolo
 
 test:
   <<: *default
   database: church_voting_app_test
-  username: postgres
-  password: wolo
 
 production:
   <<: *default
-  database: church_voting_app_production
-  url: <%= ENV['DATABASE_URL'] %>   # Uses the DATABASE_URL environment variable in production for security
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] %>
-  pool: <%= ENV['DB_POOL'] || 5 %>  # You can set this as an environment variable
-  port: <%= ENV['DB_PORT'] || 5432 %>  # Uses the default PostgreSQL port or environment variable
+  # host: 10.215.212.114
+  port: 5432
+  database: church_voting_app
