@@ -13,7 +13,8 @@ class User < ApplicationRecord
   end
 
   # Roles: 'admin', 'voter'
-  enum role: { admin: 'admin', voter: 'voter' }
+  enum role: { admin: 'admin', voter: 'voter', developer: 'developer' }
 
+  validates :verification_code, presence: true, if: :developer?
   # No need for a custom admin? method since Rails already provides one
 end

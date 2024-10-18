@@ -1,0 +1,23 @@
+<h1>Manage Positions</h1>
+
+<%= link_to 'Create New Position', new_admin_position_path, class: 'btn btn-primary' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @positions.each do |position| %>
+      <tr>
+        <td><%= position.name %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_position_path(position), class: 'btn btn-warning' %>
+          <%= link_to 'Delete', admin_position_path(position), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
