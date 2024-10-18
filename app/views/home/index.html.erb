@@ -10,6 +10,7 @@
   <% elsif current_user.admin? %>
     <p>Welcome, Admin! You can manage the voting system:</p>
     <%= link_to 'Manage Voters', admin_voters_path, class: 'action-link' %>
+    <%= link_to 'Manage Positions', admin_positions_path, class: 'action-link' %>
     <%= link_to 'Add Candidate', new_admin_candidate_path, class: 'action-link' %>
     <%= link_to 'View Admin Summary', admin_votes_summary_path, class: 'action-link' %>
   <% else %>

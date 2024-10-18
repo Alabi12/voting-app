@@ -1,18 +1,17 @@
-<%= form_for @user do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
+<%= form_for(@user, url: registration_path(:user)) do |f| %>
   <%= f.label :email %>
   <%= f.email_field :email %>
 
   <%= f.label :password %>
   <%= f.password_field :password %>
 
-  <%= f.label :contact_number %>
-  <%= f.telephone_field :contact_number %>
-
-  <%= f.label :role, "Select your role" %>
-  <%= f.select :role, options_for_select([['Developer', 'developer'], ['Admin', 'admin'], ['Voter', 'voter']]) %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
 
   <%= f.submit "Sign up" %>
+
+  <div>
+  <%= f.label :verification_code, "Developer Verification Code" %>
+  <%= f.text_field :verification_code %>
+</div>
 <% end %>

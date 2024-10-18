@@ -1,0 +1,10 @@
+<h1>Edit Position</h1>
+
+<%= form_for [:admin, @position] do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <%= f.submit 'Update Position', class: 'btn btn-primary' %>
+<% end %>

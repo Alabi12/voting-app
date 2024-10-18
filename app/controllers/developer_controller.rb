@@ -1,25 +1,25 @@
-# app/controllers/developer_controller.rb
 class DeveloperController < ApplicationController
-  before_action :authenticate_user!
-  before_action :ensure_developer
+  before_action :authenticate_developer!
+  before_action :restrict_signup_to_developers, only: [:new, :create]
+  before_action :restrict_signup_to_non_users, only: [:new, :create]
 
-  def index
-    @users = User.all
-  end
-
-  def assign_role
-    @user = User.find(params[:id])
-    if params[:role] == 'admin'
-      @user.update(admin: true)
-    elsif params[:role] == 'voter'
-      @user.update(admin: false)
+  def authenticate_developer!
+    unless current_user&.developer?
+      flash[:alert] = "You must be a developer to access this page."
+      redirect_to root_path
     end
-    redirect_to developer_dashboard_path, notice: "Role updated successfully!"
   end
 
-  private
+  def restrict_signup_to_developers
+    if current_user && !current_user.developer?
+      redirect_to root_path, alert: "Only developers can sign up!"
+    end
+  end
 
-  def ensure_developer
-    redirect_to root_path unless current_user.developer?
+  def restrict_signup_to_non_users
+    if current_user && (current_user.admin? || current_user.voter?)
+      redirect_to root_path, alert: "You are not allowed to access the signup page."
+    end
   end
 end
+
