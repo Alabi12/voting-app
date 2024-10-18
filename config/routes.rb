@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
   get 'render/index'
   # Devise routes for user authentication
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
+
+  authenticated :user, ->(u) { u.developer? } do
+    get 'sign_up', to: 'devise/registrations#new'
+  end
+
+  get 'developer/dashboard', to: 'developer#index', as: 'developer_dashboard'
+  patch 'developer/assign_role/:id', to: 'developer#assign_role', as: 'assign_role'
+
 
   # Positions and Candidates routes for regular users to vote
   resources :positions do
