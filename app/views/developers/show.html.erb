@@ -1,0 +1,19 @@
+<!-- app/views/admin/developers/show.html.erb -->
+<h1>Developer Details</h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @developer.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @developer.email %>
+</p>
+
+<p>
+  <strong>Verification Code:</strong>
+  <%= @developer.verification_code %>
+</p>
+
+<%= link_to 'Back to Developers', admin_developers_path %>

@@ -1,25 +1,26 @@
-class DeveloperController < ApplicationController
-  before_action :authenticate_developer!
-  before_action :restrict_signup_to_developers, only: [:new, :create]
-  before_action :restrict_signup_to_non_users, only: [:new, :create]
+class DevelopersController < ApplicationController
+  before_action :require_admin
 
-  def authenticate_developer!
-    unless current_user&.developer?
-      flash[:alert] = "You must be a developer to access this page."
-      redirect_to root_path
+  def new
+    @developer = Developer.new
+  end
+
+  def create
+    @developer = Developer.new(developer_params)
+    if @developer.save
+      redirect_to admin_dashboard_path, notice: 'Developer created successfully.'
+    else
+      render :new
     end
   end
 
-  def restrict_signup_to_developers
-    if current_user && !current_user.developer?
-      redirect_to root_path, alert: "Only developers can sign up!"
-    end
+  private
+
+  def developer_params
+    params.require(:developer).permit(:email, :password, :password_confirmation)
   end
 
-  def restrict_signup_to_non_users
-    if current_user && (current_user.admin? || current_user.voter?)
-      redirect_to root_path, alert: "You are not allowed to access the signup page."
-    end
+  def require_admin
+    redirect_to root_path, alert: 'Access denied.' unless current_user&.admin?
   end
 end
-

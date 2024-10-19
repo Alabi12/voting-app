@@ -1,36 +1,33 @@
 class RegistrationsController < Devise::RegistrationsController
-  def create
-    @user = User.new(user_params)
+  def new
+    @user = User.new
+  end
 
-    if @user.developer
-      if verify_developer(@user.verification_code)
-        if @user.save
-          redirect_to admin_dashboard_path, notice: "Signed up successfully." # Redirect to admin dashboard
-        else
-          Rails.logger.debug @user.errors.full_messages
-          render :new
-        end
+  def create
+    @user = User.new(sign_up_params) # Ensure parameters are being passed correctly
+
+    # Assign roles based on the checkboxes
+    @user.admin = params[:user][:admin] == '1'
+    @user.developer = params[:user][:developer] == '1'
+
+    if @user.save
+      flash[:notice] = "Welcome! You have signed up successfully."
+      # Redirect based on role
+      if @user.admin?
+        redirect_to admin_dashboard_path
+      elsif @user.developer?
+        redirect_to developer_dashboard_path
       else
-        @user.errors.add(:base, "Developer verification failed.")
-        render :new
+        redirect_to positions_path # Regular users
       end
     else
-      if @user.save
-        redirect_to root_path, notice: "Signed up successfully." # Redirect to home or another page for regular users
-      else
-        Rails.logger.debug @user.errors.full_messages
-        render :new
-      end
+      render :new # This will render the new view and show the errors
     end
   end
 
   private
 
-  def verify_developer(code)
-    Developer.exists?(verification_code: code) # Checks if the developer exists with that code
-  end
-
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :developer, :verification_code)
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :admin, :developer)
   end
 end

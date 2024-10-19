@@ -1,0 +1,11 @@
+<h1>Admin Dashboard</h1>
+
+<p>Manage the system using the options below:</p>
+
+<ul class="options-list">
+  <li class="options-item"><%= link_to 'Create Developer', new_admin_developer_path, class: 'options-link' %></li>
+  <li class="options-item"><%= link_to 'Manage Voters', admin_voters_path, class: 'options-link' %></li>
+  <li class="options-item"><%= link_to 'Manage Positions', admin_positions_path, class: 'options-link' %></li>
+  <li class="options-item"><%= link_to 'Add Candidate', new_admin_candidate_path, class: 'options-link' %></li>
+  <li class="options-item"><%= link_to 'View Admin Summary', admin_votes_summary_path, class: 'options-link' %></li>
+</ul>

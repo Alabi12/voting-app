@@ -1,4 +1,16 @@
-<%= form_for(@user, url: registration_path(:user)) do |f| %>
+<!-- app/views/devise/registrations/new.html.erb -->
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @user, url: registration_path(:user) do |f| %>
   <%= f.label :email %>
   <%= f.email_field :email %>
 
@@ -8,10 +20,15 @@
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
 
-  <%= f.submit "Sign up" %>
+  <div>
+    <%= f.label :developer, "Sign up as Developer" %>
+    <%= f.check_box :developer %>
+  </div>
 
   <div>
-  <%= f.label :verification_code, "Developer Verification Code" %>
-  <%= f.text_field :verification_code %>
-</div>
+    <%= f.label :admin, "Sign up as Admin" %>
+    <%= f.check_box :admin %>
+  </div>
+
+  <%= f.submit "Sign up" %>
 <% end %>

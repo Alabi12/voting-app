@@ -1,0 +1,26 @@
+<!-- app/views/admin/developers/new.html.erb -->
+<h1>Create New Developer</h1>
+
+<%= form_for @developer do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :verification_code %>
+  <%= f.text_field :verification_code %>
+
+  <%= f.submit "Create Developer" %>
+<% end %>
+
+<h2>Existing Developers</h2>
+<ul>
+  <% Developer.all.each do |developer| %>
+    <li><%= developer.name %>
+    <li><%= developer.email %>
+    <%= developer.verification_code %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Developers', admin_developers_path %>

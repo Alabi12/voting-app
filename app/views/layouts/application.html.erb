@@ -117,22 +117,9 @@
 
   <body>
     <header class="header">
-      <%= image_tag 'pcg.png', alt: 'Left Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
-      
-      <nav>
-        <% if user_signed_in? %>
-          <ul>
-            <li><%= link_to 'Profile', edit_user_registration_path %></li>
-            <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "button" %></li>
-          </ul>
-        <% else %>
-          <ul>
-            <li><%= link_to 'Login', new_user_session_path %></li>
-          </ul>
-        <% end %>
-      </nav>
+      <%= image_tag 'logowhite.jpg', alt: 'Left Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
 
-      <%= image_tag 'logo.png', alt: 'Right Logo', class: 'logo' %>
+      <%= image_tag 'logowhite.jpg', alt: 'Right Logo', class: 'logo' %>
     </header>
 
   <div class="container">
@@ -149,9 +136,6 @@
         <%= link_to 'Sign Up', new_user_registration_path %>
       <% end %>
     <% end %>
-    
-    <%= image_tag 'logowhite.jpg', alt: 'Right Logo', class: 'logo' %>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
