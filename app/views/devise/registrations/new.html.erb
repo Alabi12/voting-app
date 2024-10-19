@@ -1,6 +1,6 @@
 <!-- app/views/devise/registrations/new.html.erb -->
 <% if @user.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation" class="alert alert-danger">
     <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
     <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -10,25 +10,103 @@
   </div>
 <% end %>
 
+<h1>Sign Up</h1>
+
 <%= form_for @user, url: registration_path(:user) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <div class="form-group">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, class: 'form-input' %>
+  </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+  <div class="form-group">
+    <%= f.label :password, class: 'form-label' %>
+    <%= f.password_field :password, class: 'form-input' %>
+  </div>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
+  <div class="form-group">
+    <%= f.label :password_confirmation, class: 'form-label' %>
+    <%= f.password_field :password_confirmation, class: 'form-input' %>
+  </div>
 
-  <div>
-    <%= f.label :developer, "Sign up as Developer" %>
+  <div class="form-group">
+    <%= f.label :developer, "Sign up as Developer", class: 'form-label' %>
     <%= f.check_box :developer %>
   </div>
 
-  <div>
-    <%= f.label :admin, "Sign up as Admin" %>
+  <div class="form-group">
+    <%= f.label :admin, "Sign up as Admin", class: 'form-label' %>
     <%= f.check_box :admin %>
   </div>
 
-  <%= f.submit "Sign up" %>
+  <div class="form-actions">
+    <%= f.submit "Sign up", class: 'btn btn-primary' %>
+  </div>
 <% end %>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .alert {
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .form-actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+</style>

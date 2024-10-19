@@ -1,10 +1,67 @@
-<h1>Edit Position</h1>
+<h1 class="form-title">Edit Position</h1>
 
 <%= form_for [:admin, @position] do |f| %>
   <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: 'form-input' %>
   </div>
 
-  <%= f.submit 'Update Position', class: 'btn btn-primary' %>
+  <div class="form-actions">
+    <%= f.submit 'Update Position', class: 'form-submit' %>
+  </div>
 <% end %>
+
+<style>
+  .form-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+
+  .form-actions {
+    margin-top: 20px;
+  }
+
+  .form-submit {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .form-submit:hover {
+    background-color: #0056b3;
+  }
+</style>

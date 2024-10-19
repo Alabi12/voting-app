@@ -9,7 +9,8 @@
   <h2>Votes by Candidate</h2>
   <ul>
     <% @votes_by_candidate.each do |candidate_name, votes| %>
-      <li><strong><%= candidate_name %>:</strong> <%= votes %> votes</li>
+      <% percentage = @total_votes > 0 ? (votes.to_f / @total_votes * 100).round(2) : 0 %> <!-- Calculate percentage -->
+      <li><strong><%= candidate_name %>:</strong> <%= votes %> votes (<%= percentage %>%)</li>
     <% end %>
   </ul>
 </div>

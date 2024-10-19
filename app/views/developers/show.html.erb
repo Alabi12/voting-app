@@ -1,19 +1,65 @@
 <!-- app/views/admin/developers/show.html.erb -->
 <h1>Developer Details</h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @developer.name %>
-</p>
+<div class="developer-details">
+  <p>
+    <strong>Name:</strong>
+    <span><%= @developer.name %></span>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @developer.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <span><%= @developer.email %></span>
+  </p>
 
-<p>
-  <strong>Verification Code:</strong>
-  <%= @developer.verification_code %>
-</p>
+  <p>
+    <strong>Verification Code:</strong>
+    <span><%= @developer.verification_code %></span>
+  </p>
+</div>
 
-<%= link_to 'Back to Developers', admin_developers_path %>
+<%= link_to 'Back to Developers', admin_developers_path, class: 'back-link' %>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .developer-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  strong {
+    color: #007BFF;
+  }
+
+  .back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
