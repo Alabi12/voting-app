@@ -3,6 +3,17 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+         has_many :votes # Assuming you have a Vote model
+         def voted_for?(position)
+          votes.exists?(candidate: position.candidates)
+        end
+
+         # Method to check if the user has already voted for a position
+         def voted_for?(position)
+           votes.exists?(position_id: position.id)
+         end
+
+
   # Add these attributes to your model
   attribute :admin, :boolean, default: false
   attribute :developer, :boolean, default: false
@@ -16,5 +27,9 @@ class User < ApplicationRecord
 
   def developer?
     self.developer
+  end
+
+  def voter?
+    self.role == 'voter'  # Replace 'role' with the appropriate attribute name if needed
   end
 end
