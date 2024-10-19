@@ -1,24 +1,24 @@
 <h1>Create Developer</h1>
 
-<%= form_for @developer, url: admin_developers_path do |f| %>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true %>
+<%= form_for(@developer, url: admin_developers_path) do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br>
+  <div>
+    <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
+  <div>
+    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Create Developer" %>
+  <div>
+    <%= f.submit 'Create Developer' %>
   </div>
 <% end %>
 
-<%= link_to 'Back to Dashboard', admin_dashboard_path %>
+<%= link_to 'Back', admin_dashboard_path %>

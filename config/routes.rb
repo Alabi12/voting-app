@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  get 'render/index'
   devise_for :users, controllers: { registrations: 'registrations' }
+
+  get 'developer/dashboard', to: 'developers#dashboard', as: :developer_dashboard
 
   # Admin routes
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index', as: 'dashboard'
-    resources :developers, only: [:new, :create] # Ensure this line is included
+    resources :developers, only: [:new, :create]
+    get 'dashboard', to: 'dashboard#index'  # Removed the 'as' option
+    # get 'dashboard', to: 'dashboard#index', as: 'dashboard'
     resources :voters
     resources :positions
     resources :candidates
