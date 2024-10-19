@@ -1,9 +1,0 @@
-<% if flash[:notice] %>
-  toastr.success("<%= flash[:notice] %>");
-<% elsif flash[:alert] %>
-  toastr.error("<%= flash[:alert] %>");
-<% end %>
-
-// Update vote count and button status
-$("span#vote-count-<%= candidate.id %>").text("<%= candidate.votes.count %> votes");
-$("button#vote-button-<%= candidate.id %>").prop("disabled", true).text("Voted");
