@@ -1,9 +1,6 @@
 <!-- app/views/admin/votes/summary.html.erb -->
 <h1>Vote Summary</h1>
 
-<!-- Link to Download PDF -->
-<%= link_to 'Download PDF', admin_summary_pdf_path(format: :pdf), class: 'action-link' %>
-
 <!-- Display Total Votes Cast -->
 <p class="total-votes"><strong>Total Votes Cast: <%= @votes.count %></strong></p>
 

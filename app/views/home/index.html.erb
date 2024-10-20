@@ -4,9 +4,14 @@
   <h1>Welcome to the Voting Platform</h1>
 
   <% if current_user %>
-    <% if current_user.admin? %>
-      <p>As an admin, you can manage voters, add candidates, and view the summary:</p>
+    <% if current_user.developer? %>
+      <p>Welcome, Developer! You can assign roles:</p>
+      <%= link_to 'Assign Roles', developer_dashboard_path, class: 'action-link' %> <!-- Uncommented link -->
+    <% elsif current_user.admin? %>
+      <p>Welcome, Admin! You can manage the voting system:</p>
+      <%= link_to 'Create Developer', new_admin_developer_path, class: 'action-link' %>
       <%= link_to 'Manage Voters', admin_voters_path, class: 'action-link' %>
+      <%= link_to 'Manage Positions', admin_positions_path, class: 'action-link' %>
       <%= link_to 'Add Candidate', new_admin_candidate_path, class: 'action-link' %>
       <%= link_to 'View Admin Summary', admin_votes_summary_path, class: 'action-link' %>
     <% else %>
@@ -14,14 +19,9 @@
       <%= link_to 'Vote Now', positions_path, class: 'action-link' %>
     <% end %>
   <% else %>
-    <ul class="options-list">
-      <li class="options-item">
-        <%= link_to 'Vote for Candidates', positions_path, class: 'options-link' %>
-      </li>
-      <li class="options-item">
-        <%= link_to 'View Voting Summary', admin_votes_summary_path, class: 'options-link' %>
-      </li>
-    </ul>
+    <p>Please log in to access the platform.</p>
+    <%= link_to 'Log In', new_user_session_path, class: 'action-link' %>
+    <%= link_to 'Sign Up', new_user_registration_path, class: 'action-link' %>
   <% end %>
 </div>
 

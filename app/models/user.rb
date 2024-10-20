@@ -1,19 +1,35 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :votes
-  has_many :voted_candidates, through: :votes, source: :candidate
+         has_many :votes # Assuming you have a Vote model
+         def voted_for?(position)
+          votes.exists?(candidate: position.candidates)
+        end
 
-  # Check if a user has voted for a specific position
-  def voted_for?(position)
-    voted_candidates.exists?(position: position)
+         # Method to check if the user has already voted for a position
+         def voted_for?(position)
+           votes.exists?(position_id: position.id)
+         end
+
+
+  # Add these attributes to your model
+  attribute :admin, :boolean, default: false
+  attribute :developer, :boolean, default: false
+
+  scope :voters, -> { where(role: 'voter') }
+
+  # Role checks
+  def admin?
+    self.admin
   end
 
-  # Roles: 'admin', 'voter'
-  enum role: { admin: 'admin', voter: 'voter' }
+  def developer?
+    self.developer
+  end
 
-  # No need for a custom admin? method since Rails already provides one
+  def voter?
+    self.role == 'voter'  # Replace 'role' with the appropriate attribute name if needed
+  end
 end

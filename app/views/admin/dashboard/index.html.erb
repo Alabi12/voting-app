@@ -1,0 +1,89 @@
+<!-- app/views/admin/candidates/new.html.erb -->
+<h1 class="form-title">New Candidate</h1>
+
+<%= form_with model: @candidate, url: admin_candidates_path, local: true do |form| %>
+  <div class="form-group">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-input" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :position_id, "Select Position", class: "form-label" %>
+    <%= form.collection_select :position_id, @positions, :id, :name, prompt: true, class: "form-input" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :image, "Upload Image", class: "form-label" %>
+    <%= form.file_field :image, class: "form-input" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Create Candidate", class: "form-submit" %>
+  </div>
+<% end %>
+
+<%= link_to 'Dashboard', root_path, class: 'action-link' %>
+
+<style>
+  .form-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+
+  .form-submit {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .form-submit:hover {
+    background-color: #218838;
+  }
+
+  .action-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  .action-link:hover {
+    text-decoration: underline;
+  }
+</style>

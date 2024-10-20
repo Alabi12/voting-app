@@ -9,6 +9,9 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+
     <style>
       /* Style for the header with logos */
       .header {
@@ -114,7 +117,7 @@
 
   <body>
     <header class="header">
-      <%= image_tag 'pcg.png', alt: 'Left Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
+      <%= image_tag 'logowhite.jpg', alt: 'Left Logo', class: 'logo' %> <!-- Replace with your actual logo image file -->
       
       <nav>
         <% if user_signed_in? %>
@@ -129,7 +132,7 @@
         <% end %>
       </nav>
 
-      <%= image_tag 'logo.png', alt: 'Right Logo', class: 'logo' %>
+      <%= image_tag 'logowhite.jpg', alt: 'Right Logo', class: 'logo' %>
     </header>
 
   <div class="container">
@@ -142,8 +145,21 @@
       <p><%= notice %></p>
 
       
+      <% if current_user&.developer? %>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+      <% end %>
     <% end %>
-    <%= image_tag 'logowhite.jpg', alt: 'Right Logo', class: 'logo' %>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      <% if flash[:notice] %>
+        toastr.success("<%= flash[:notice] %>");
+      <% elsif flash[:alert] %>
+        toastr.error("<%= flash[:alert] %>");
+      <% end %>
+    </script>
+
   </body>
 </html>

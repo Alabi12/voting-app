@@ -5,21 +5,36 @@
     <style>
       body {
         font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
       }
       h1 {
         text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
       }
       table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 20px;
       }
       th, td {
         border: 1px solid #ddd;
-        padding: 8px;
+        padding: 12px;
         text-align: left;
       }
       th {
         background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      td {
+        font-size: 16px;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
       }
     </style>
   </head>
@@ -34,17 +49,15 @@
         </tr>
       </thead>
       <tbody>
-        <% @votes.group_by(&:position).each do |position, votes| %>
-          <% if position.present? && votes.any? %>
-            <tr>
-              <td rowspan="<%= votes.count %>"><%= position.name %></td>
-              <td><%= votes.first.candidate.name if votes.first.candidate.present? %></td>
-              <td><%= votes.count %></td>
-            </tr>
-            <% votes[1..-1].each do |vote| %>
+        <% @votes.group_by { |vote| vote.candidate.position }.each do |position, position_votes| %>
+          <% if position.present? && position_votes.any? %>
+            <% position_votes.group_by(&:candidate).each_with_index do |(candidate, candidate_votes), index| %>
               <tr>
-                <td><%= vote.candidate.name if vote.candidate.present? %></td>
-                <td><%= votes.count %></td>
+                <% if index == 0 %>
+                  <td rowspan="<%= position_votes.group_by(&:candidate).count %>"><%= position.name %></td>
+                <% end %>
+                <td><%= candidate.name if candidate.present? %></td>
+                <td><%= candidate_votes.count %></td>
               </tr>
             <% end %>
           <% end %>

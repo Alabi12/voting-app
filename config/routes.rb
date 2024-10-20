@@ -1,29 +1,24 @@
 Rails.application.routes.draw do
   get 'render/index'
-  # Devise routes for user authentication
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
-  # Positions and Candidates routes for regular users to vote
+  # Admin routes
+  namespace :admin do
+    resources :developers, only: [:new, :create]
+    get 'dashboard', to: 'dashboard#index', as: :admin_dashboard
+    resources :voters
+    resources :positions
+    resources :candidates
+    get 'votes_summary', to: 'votes#summary'
+  end
+
+  # Voting routes for regular users
   resources :positions do
     resources :candidates do
-      post 'vote', to: 'votes#vote', as: 'vote'  # Defines the voting route within candidates
+      post 'vote', to: 'votes#vote'  # Ensure this route exists
     end
   end
 
-  # Admin-specific routes, authenticated and restricted to admin users
-  authenticate :user, lambda { |u| u.admin? } do
-    namespace :admin do
-      resources :voters, only: [:index, :new, :create]  # Admin can manage voters
-
-      # Route for viewing the vote summary
-      get 'votes/summary', to: 'votes#summary', as: 'votes_summary'  # Admin can view the vote summary
-      get 'summary/pdf', to: 'votes#summary_pdf', as: 'summary_pdf' # Route for PDF download
-      
-      # Admin routes for managing candidates
-      resources :candidates, only: [:new, :create, :index]  # Admin can create and list candidates
-    end
-  end
-
-  # Root path for the home page
+  # Root route
   root 'home#index'
 end
