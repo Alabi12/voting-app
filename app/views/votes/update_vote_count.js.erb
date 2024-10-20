@@ -1,0 +1,8 @@
+// Update the vote count for the candidate dynamically
+$("#candidate_<%= candidate.id %>_votes").text("<%= candidate.votes.count %> votes");
+
+// Update the vote percentage for the candidate
+$("#candidate_<%= candidate.id %>_percentage").text("<%= vote_percentage %>%");
+
+// Optionally, update the total votes for the position
+$("#position_<%= candidate.position.id %>_total_votes").text("Total Votes: <%= total_votes %>");
