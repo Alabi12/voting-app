@@ -1,0 +1,25 @@
+<h1>Candidates List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @candidates.each do |candidate| %>
+      <tr>
+        <td><%= candidate.name %></td>
+        <td><%= candidate.position.name %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_candidate_path(candidate) %>
+          <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Candidate', new_admin_candidate_path %>

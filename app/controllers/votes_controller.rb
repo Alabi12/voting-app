@@ -4,19 +4,19 @@ class VotesController < ApplicationController
 
   def vote
     candidate = Candidate.find(params[:candidate_id])
-  
+
     if current_user.voted_for?(candidate.position)
       render json: { error: "You have already voted for this position." }, status: :forbidden
     else
+      # Create a new vote
       Vote.create(candidate: candidate, user: current_user, position: candidate.position)
-  
-      # Respond to JS to update the vote count dynamically
-      respond_to do |format|
-        format.js { render 'update_vote_count', locals: { candidate: candidate } }
-      end
+
+      # Update the candidate's vote count dynamically
+      update_vote_count(candidate)
+
+      redirect_to positions_path, notice: "Thank you for voting!"  # Redirect after voting
     end
   end  
-  
 
   def summary
     @positions = Position.includes(candidates: :votes)  # Preload candidates and their votes
@@ -32,6 +32,11 @@ class VotesController < ApplicationController
   end
 
   private
+
+  def update_vote_count(candidate)
+    # Increment the vote count for the candidate
+    candidate.increment!(:votes_count)  # Assuming you have a `votes_count` column in your candidates table
+  end
 
   def ensure_voter_role
     redirect_to root_path, alert: "You are not authorized to vote." unless current_user.voter?

@@ -2,6 +2,10 @@ class Admin::CandidatesController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_admin
 
+  def index
+    @candidates = Candidate.all
+  end
+
   def new
     @candidate = Candidate.new
     @positions = Position.all  # Ensure positions are available for selection

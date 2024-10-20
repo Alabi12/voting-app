@@ -1,0 +1,13 @@
+// app/views/votes/update_vote_count.js.erb
+
+// Check if there's an error message
+<% if candidate.errors.any? %>
+  alert("<%= j candidate.errors.full_messages.join(', ') %>"); // Display errors in an alert
+<% else %>
+  // Update the vote count displayed for the candidate
+  const voteCountElement = document.getElementById("vote-count-<%= candidate.id %>");
+  if (voteCountElement) {
+    const newVoteCount = parseInt(voteCountElement.innerText) + 1;
+    voteCountElement.innerText = newVoteCount;
+  }
+<% end %>
