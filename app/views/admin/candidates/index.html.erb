@@ -1,25 +1,72 @@
-<h1>Candidates List</h1>
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Position</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @candidates.each do |candidate| %>
-      <tr>
-        <td><%= candidate.name %></td>
-        <td><%= candidate.position.name %></td>
-        <td>
-          <%= link_to 'Edit', edit_admin_candidate_path(candidate) %>
-          <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-<%= link_to 'New Candidate', new_admin_candidate_path %>
+.table-responsive {
+  overflow-x: auto; /* Allow horizontal scrolling on small screens */
+}
+
+.candidates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto; /* Center the table */
+}
+
+.candidates-table th,
+.candidates-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.candidates-table th {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+}
+
+.candidates-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Zebra striping for rows */
+}
+
+.candidates-table tr:hover {
+  background-color: #ddd; /* Highlight row on hover */
+}
+
+.action-link {
+  margin-right: 10px; /* Spacing between action links */
+  text-decoration: none;
+  color: #007BFF; /* Bootstrap primary color */
+}
+
+.action-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.delete-link {
+  color: #dc3545; /* Bootstrap danger color */
+}
+
+.delete-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.new-candidate-button {
+  display: block;
+  margin: 20px auto; /* Center the button */
+  padding: 10px 15px;
+  background-color: #007BFF; /* Bootstrap primary color */
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.new-candidate-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
