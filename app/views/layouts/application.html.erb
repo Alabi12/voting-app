@@ -19,6 +19,7 @@
             padding-top: 80px; /* Padding to avoid content behind the fixed header */
         }
 
+        /* Header styles */
         .header {
             display: flex;
             justify-content: space-between;
@@ -36,13 +37,8 @@
         .logo {
             width: 100px;
             height: auto;
-            margin-right: 20px
+            margin-right: 20px;
         }
-
-        /* nav {
-            display: flex;
-            align-items: center;
-        } */
 
         nav ul {
             display: flex;
@@ -69,13 +65,17 @@
             background-color: #0056b3; /* Darker blue on hover */
         }
 
-        .container {
+        /* Page container to apply margin-top */
+        .content-container {
             max-width: 800px;
-            margin: auto;
+            margin: 40px auto; /* Space added on top to avoid header overlap */
             padding: 20px;
-            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }
 
+        /* Flash messages */
         .flash-message {
             padding: 15px;
             margin: 20px auto;
@@ -84,6 +84,32 @@
             color: #155724;
             border: 1px solid #c3e6cb;
             width: 80%;
+            text-align: center;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50; /* Green header */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
         }
 
         /* Responsive styles */
@@ -91,7 +117,7 @@
             .header {
                 flex-direction: column; /* Stack items vertically on smaller screens */
                 align-items: flex-start; /* Align items to the start */
-                padding: 10px; /* Reduced padding for smaller screens */
+                padding: 5px; /* Reduced padding for smaller screens */
             }
 
             nav ul {
@@ -132,27 +158,19 @@
         <%= image_tag 'logowhite.jpg', alt: 'Right Logo', class: 'logo' %>
     </header>
 
-    <div class="container">
+    <!-- Page content starts here -->
+    <div class="content-container">
+        <!-- Flash messages -->
         <% flash.each do |key, message| %>
             <div class="flash-message <%= key %>"><%= message %></div>
         <% end %>
+
+        <!-- Page specific content -->
         <%= yield %>
 
-        <% if notice %>
-            <p><%= notice %></p>
-            <% if current_user&.developer? %>
-                <%= link_to 'Sign Up', new_user_registration_path %>
-            <% end %>
-        <% end %>
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            <% if flash[:notice] %>
-                toastr.success("<%= flash[:notice] %>");
-            <% elsif flash[:alert] %>
-                toastr.error("<%= flash[:alert] %>");
-            <% end %>
-        </script>
     </div>
+
+    <!-- Include any other scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
