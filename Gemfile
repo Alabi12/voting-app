@@ -16,8 +16,6 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
-gem 'toastr-rails'
-
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'  # This will install the necessary binary
 
