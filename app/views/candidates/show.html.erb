@@ -1,7 +1,0 @@
-<h2><%= @candidate.name %></h2>
-
-<% if current_user&.admin? %>
-  <p>Votes: <%= @candidate.votes.count %></p>
-<% else %>
-  <p>Votes are hidden from voters.</p>
-<% end %>
