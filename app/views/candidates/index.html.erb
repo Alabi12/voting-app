@@ -1,0 +1,24 @@
+<table class="candidates-table">
+  <thead>
+    <tr>
+      <th>Candidate Name</th>
+      <% if current_user&.admin? %>
+        <th>Votes</th>
+      <% end %>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @candidates.each do |candidate| %>
+      <tr>
+        <td><%= candidate.name %></td>
+        <% if current_user&.admin? %>
+          <td><%= candidate.votes.count %></td>
+        <% end %>
+        <td>
+          <%= link_to 'Vote', new_vote_path(candidate), class: "action-link" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
