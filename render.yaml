@@ -1,5 +1,5 @@
 databases:
-  - name: postgres
+  - name: postgresql
     databaseName: church_voting_development
     user: postgres
     plan: free
