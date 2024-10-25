@@ -1,6 +1,6 @@
 databases:
   - name: postgres
-    databaseName: church_voting_development
+    databaseName: church_voting_app_development
     user: postgres
     plan: free
 
