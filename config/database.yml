@@ -16,8 +16,10 @@ test:
 
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
+  database: church_voting_app_production  # Ensure you have the right database name here
+  username: postgres  # You can use environment variables for security
+  password: wolo      # Use environment variables for security
   port: 5432
   pool: 5
+
 
