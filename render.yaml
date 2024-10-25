@@ -1,12 +1,17 @@
 databases:
-  - name: postgres
+  - name: church_voting_app_development
     databaseName: church_voting_app_development
-    user: postgres
+    user: church_voting_app_development
+    plan: free
+
+  - name: church_voting_app_production
+    databaseName: church_voting_app_production
+    user: church_voting_app_production
     plan: free
 
 services:
   - type: web
-    name: postgres
+    name: church_voting_app
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
@@ -14,8 +19,10 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: postgres
+          name: church_voting_app_production
           property: connectionString
+      - key: RAILS_ENV
+        value: production
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
