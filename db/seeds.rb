@@ -19,6 +19,3 @@
 
 # Repeat for other positions and add candidates
 # Candidate.create([{ name: 'John Doe', image_url: 'john_doe_image_url', position: president }, { name: 'Jane Smith', image_url: 'jane_smith_image_url', position: vice_president }, { name: 'Bob Johnson', image_url: 'bob_johnson_image_url', position: secretary }, { name: 'Alice Williams', image_url: 'alice_williams_image_url', position: assistant }, { name: 'Mike Brown', image_url: 'mike_brown_image_url', position: male_organiser }, { name: 'Sarah Davis', image_url: 'sarah_davis_image_url', position: female_organiser }])
-
-Developer.create(email: "devone@gmail.com", verification_code: "123456")
-Developer.create(email: "devtwo@gmail.com", verification_code: "abcdef")

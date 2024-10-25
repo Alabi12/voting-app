@@ -17,9 +17,14 @@ Rails.application.routes.draw do
   # Voting routes for regular users
   resources :positions do
     resources :candidates do
+
+      member do
+        post 'vote', to: 'votes#vote', as: 'vote'  # Define the vote route as a member route
+      end
+
       post 'vote', to: 'votes#vote'  # Ensure this route exists
     end
-  end
+  end  
 
   # Root route
   root 'home#index'

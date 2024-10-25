@@ -3,13 +3,25 @@ class VotesController < ApplicationController
   before_action :ensure_voter_role
 
   def vote
+
+    # Use params[:position_id] and params[:id] to find the candidate
+    candidate = Candidate.find(params[:candidate_id]) # This should match the parameter name in the routes
+
     candidate = Candidate.find(params[:candidate_id])
+
 
     if current_user.voted_for?(candidate.position)
       render json: { error: "You have already voted for this position." }, status: :forbidden
     else
       # Create a new vote
       Vote.create(candidate: candidate, user: current_user, position: candidate.position)
+
+      # Respond to JS to update the vote count dynamically
+      respond_to do |format|
+        format.js { render 'update_vote_count', locals: { candidate: candidate } }
+      end
+    end
+  end
 
       # Update the candidate's vote count dynamically
       update_vote_count(candidate)
@@ -18,12 +30,13 @@ class VotesController < ApplicationController
     end
   end  
 
+
   def summary
     @positions = Position.includes(candidates: :votes)  # Preload candidates and their votes
 
-    # Calculate total votes for each position
+    # Calculate total votes and percentage for each candidate
     @positions.each do |position|
-      total_votes = position.candidates.joins(:votes).count
+      total_votes = position.candidates.sum { |c| c.votes.count }
       
       position.candidates.each do |candidate|
         candidate.vote_percentage = total_votes.zero? ? 0 : (candidate.votes.count.to_f / total_votes * 100).round(2)
