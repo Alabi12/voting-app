@@ -16,10 +16,9 @@ test:
 
 production:
   <<: *default
-  database: church_voting_app_production  # Ensure you have the right database name here
-  username: postgres  # You can use environment variables for security
-  password: wolo      # Use environment variables for security
-  port: 5432
+  database: church_voting_app_production 
+  username: postgres  
+  password: wolo     
   pool: 5
 
 
