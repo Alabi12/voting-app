@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
   get 'render/index'
   devise_for :users, controllers: { registrations: 'registrations' }
-
-  # Developer routes
-  get 'developer/dashboard', to: 'developers#dashboard', as: :developer_dashboard
+  
 
   # Admin routes
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index', as: 'dashboard'  # This creates the helper 'admin_dashboard_path'
+    get 'dashboard', to: 'dashboard#index', as: 'dashboard'
     resources :developers, only: [:new, :create]
     get 'dashboard', to: 'dashboard#index', as: :admin_dashboard
     resources :voters
@@ -19,9 +17,12 @@ Rails.application.routes.draw do
   # Voting routes for regular users
   resources :positions do
     resources :candidates do
+
       member do
         post 'vote', to: 'votes#vote', as: 'vote'  # Define the vote route as a member route
       end
+
+      post 'vote', to: 'votes#vote'  # Ensure this route exists
     end
   end  
 

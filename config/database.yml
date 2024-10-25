@@ -16,4 +16,9 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>  # Use Render's DATABASE_URL environment variable
+  database: church_voting_app_production 
+  username: postgres  
+  password: wolo     
+  pool: 5
+
+

@@ -4,8 +4,171 @@
     <p id="candidate_<%= candidate.id %>_votes"><%= candidate.votes.count %> votes</p>
     <p id="candidate_<%= candidate.id %>_percentage"><%= candidate.vote_percentage || 0 %>%</p>
 
+
     <%= button_to 'Vote', vote_position_candidate_path(@position, candidate), method: :post, remote: true, class: "vote-button" %>
   </div>
 <% end %>
 
 <p id="position_<%= @position.id %>_total_votes">Total Votes: <%= @position.candidates.sum { |c| c.votes.count } %></p>
+
+<ul class="candidate-list">
+  <% @position.candidates.each do |candidate| %>
+    <li class="candidate-item">
+      <% if candidate.image.attached? %>
+        <%= image_tag candidate.image, alt: candidate.name, class: "candidate-image" %>
+      <% else %>
+        <p class="no-image">No image available</p>
+      <% end %>
+      <div class="candidate-info">
+        <span class="candidate-name"><%= candidate.name %></span>
+        <% if user_signed_in? && !current_user.voted_for?(@position) %>
+          <%= button_to 'Vote', position_candidate_vote_path(@position, candidate), method: :post, class: "vote-button" %>
+        <% else %>
+          <button class="vote-button" disabled>Voted</button>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="links">
+  <%= link_to 'Add Candidate', new_admin_candidate_path, class: 'add-candidate-link' %>
+  <%= link_to 'Back', positions_path, class: 'back-link' %>
+</div>
+
+<style>
+  .candidate-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 30px 0;
+    color: #333;
+    text-align: center;
+  }
+
+  .candidate-list {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px; /* Limit the width of the list */
+    margin: 0 auto;   /* Center the list on the page */
+  }
+
+  .candidate-item {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd; /* Light border for each candidate */
+    border-radius: 5px;
+    background-color: #ffffff; /* White background for better contrast */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
+  }
+
+  .candidate-item:hover {
+    background-color: #f9f9f9; /* Change background on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+  }
+
+  .candidate-image {
+    max-width: 100px; /* Set a maximum width for images */
+    max-height: 100px; /* Set a maximum height for images */
+    border-radius: 5px; /* Rounded corners for images */
+    margin-right: 15px; /* Space between image and text */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+  }
+
+  .candidate-info {
+    flex-grow: 1; /* Allow the info to take remaining space */
+    display: flex;
+    justify-content: space-between; /* Space between text and button */
+    align-items: center; /* Align items vertically */
+  }
+
+  .no-image {
+    color: #777; /* Gray color for no image message */
+  }
+
+  .candidate-name {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333; /* Dark color for candidate name */
+  }
+
+  .vote-count {
+    margin-left: 10px; /* Space between name and vote count */
+    color: #555; /* Darker gray for vote count */
+    font-size: 18px; /* Slightly smaller font size */
+  }
+
+  .vote-button {
+    padding: 10px 15px;
+    background-color: #007BFF; /* Blue color for vote button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 20px; /* Space between vote count and button */
+  }
+
+  .vote-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .links {
+    text-align: center; /* Center the links */
+    margin-top: 20px; /* Space above the links */
+  }
+
+  .add-candidate-link,
+  .back-link {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #28a745; /* Green color for add candidate and back link */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 5px; /* Spacing between the links */
+    transition: background-color 0.3s;
+  }
+
+  .add-candidate-link:hover,
+  .back-link:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .candidate-title {
+      font-size: 24px; /* Smaller title on small screens */
+    }
+
+    .candidate-item {
+      flex-direction: column; /* Stack items vertically on small screens */
+      align-items: flex-start; /* Align items to the start */
+    }
+
+    .candidate-image {
+      max-width: 80%; /* Responsive image width */
+      height: auto; /* Maintain aspect ratio */
+      margin-bottom: 10px; /* Space below image */
+    }
+
+    .candidate-info {
+      width: 100%; /* Full width for candidate info on small screens */
+      justify-content: space-between; /* Keep spacing for name and votes */
+    }
+
+    .vote-button {
+      width: 100%; /* Full width for buttons on small screens */
+      margin-left: 0; /* Reset margin for full width */
+      padding: 10px; /* Adjust padding for better touch targets */
+      margin-top: 10px; /* Space above button */
+    }
+
+    .vote-count {
+      margin-top: 5px; /* Space above vote count */
+    }
+  }
+</style>
+

@@ -1,6 +1,8 @@
 <h2 class="login-title">Log In</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'login-form' }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %> <!-- Display error messages -->
+
   <div class="field">
     <%= f.label :email, class: 'label' %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'email-input' %>
@@ -26,6 +28,12 @@
 <% end %>
 
 <style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
   /* Style for the login title */
   .login-title {
     font-size: 28px;
@@ -39,7 +47,7 @@
     max-width: 400px; /* Maximum width of the form */
     margin: 0 auto; /* Center the form */
     padding: 20px; /* Padding around the form */
-    background-color: #f9f9f9; /* Light background for the form */
+    background-color: #ffffff; /* White background for better contrast */
     border: 1px solid #ddd; /* Light border for the form */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -88,6 +96,21 @@
 
   .submit-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .login-title {
+      font-size: 24px; /* Smaller title on small screens */
+    }
+
+    .login-form {
+      padding: 15px; /* Adjust padding for the form */
+    }
+
+    .submit-button {
+      padding: 12px; /* Increase padding for better touch targets */
+    }
   }
 
   /* Additional styling for error messages, if necessary */

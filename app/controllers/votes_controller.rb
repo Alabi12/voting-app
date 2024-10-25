@@ -3,12 +3,17 @@ class VotesController < ApplicationController
   before_action :ensure_voter_role
 
   def vote
+
     # Use params[:position_id] and params[:id] to find the candidate
     candidate = Candidate.find(params[:candidate_id]) # This should match the parameter name in the routes
+
+    candidate = Candidate.find(params[:candidate_id])
+
 
     if current_user.voted_for?(candidate.position)
       render json: { error: "You have already voted for this position." }, status: :forbidden
     else
+      # Create a new vote
       Vote.create(candidate: candidate, user: current_user, position: candidate.position)
 
       # Respond to JS to update the vote count dynamically
@@ -17,6 +22,14 @@ class VotesController < ApplicationController
       end
     end
   end
+
+      # Update the candidate's vote count dynamically
+      update_vote_count(candidate)
+
+      redirect_to positions_path, notice: "Thank you for voting!"  # Redirect after voting
+    end
+  end  
+
 
   def summary
     @positions = Position.includes(candidates: :votes)  # Preload candidates and their votes
@@ -32,6 +45,11 @@ class VotesController < ApplicationController
   end
 
   private
+
+  def update_vote_count(candidate)
+    # Increment the vote count for the candidate
+    candidate.increment!(:votes_count)  # Assuming you have a `votes_count` column in your candidates table
+  end
 
   def ensure_voter_role
     redirect_to root_path, alert: "You are not authorized to vote." unless current_user.voter?

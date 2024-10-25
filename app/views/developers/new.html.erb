@@ -2,25 +2,112 @@
 <h1>Create New Developer</h1>
 
 <%= form_for @developer do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-input' %>
+  </div>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-input' %>
+  </div>
 
-  <%= f.label :verification_code %>
-  <%= f.text_field :verification_code %>
+  <div class="form-group">
+    <%= f.label :verification_code %>
+    <%= f.text_field :verification_code, class: 'form-input' %>
+  </div>
 
-  <%= f.submit "Create Developer" %>
+  <div class="form-group">
+    <%= f.submit "Create Developer", class: 'form-submit' %>
+  </div>
 <% end %>
 
 <h2>Existing Developers</h2>
-<ul>
+<ul class="developer-list">
   <% Developer.all.each do |developer| %>
-    <li><%= developer.name %>
-    <li><%= developer.email %>
-    <%= developer.verification_code %></li>
+    <li class="developer-item">
+      <strong>Name:</strong> <%= developer.name %> |
+      <strong>Email:</strong> <%= developer.email %> |
+      <strong>Verification Code:</strong> <%= developer.verification_code %>
+    </li>
   <% end %>
 </ul>
 
-<%= link_to 'Back to Developers', admin_developers_path %>
+<%= link_to 'Back to Developers', admin_developers_path, class: 'back-link' %>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  h2 {
+    margin-top: 40px;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+  }
+
+  .form-input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .form-submit {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .form-submit:hover {
+    background-color: #0056b3;
+  }
+
+  .developer-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .developer-item {
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -3,7 +3,7 @@ module Admin
     before_action :require_admin
 
     def index
-      # Dashboard logic here
+      @positions = Position.all
     end
 
     private
