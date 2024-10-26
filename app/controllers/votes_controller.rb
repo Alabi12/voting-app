@@ -19,9 +19,8 @@ class VotesController < ApplicationController
   end  
 
   def summary
-    @positions = Position.includes(candidates: :votes)  # Preload candidates and their votes
+    @positions = Position.includes(candidates: :votes)  
 
-    # Calculate total votes for each position
     @positions.each do |position|
       total_votes = position.candidates.joins(:votes).count
       
