@@ -1,0 +1,4 @@
+<!-- app/views/votes/vote.turbo_stream.erb -->
+<%= turbo_stream.replace "candidate-#{@candidate.id}-votes" do %>
+  <span id="candidate-<%= @candidate.id %>-votes"><%= @candidate.votes_count %></span>
+<% end %>

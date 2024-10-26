@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
-  # get 'admin/dashboard', to: 'admin/dashboard#show', as: 'admin_dashboard'
-
+  
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'  # This creates admin_dashboard_path
-    resources :candidates, only: [:index, :new, :show, :edit, :update, :destroy]
+    get 'dashboard', to: 'dashboard#index', as: 'dashboard' # This creates admin_dashboard_path
+    resources :candidates, only: [:index, :new, :create, :edit, :update, :destroy, :show]
+    get 'dashboard', to: 'dashboard#index', as: 'admin_dashboard' # Define the admin dashb
     resources :developers, only: [:new, :create]
     resources :voters
     resources :positions

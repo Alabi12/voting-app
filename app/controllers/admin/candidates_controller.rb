@@ -1,8 +1,7 @@
+# app/controllers/admin/candidates_controller.rb
 class Admin::CandidatesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :ensure_admin
-  before_action :load_positions, only: [:new, :create, :edit, :update]
   before_action :set_candidate, only: [:show, :edit, :update, :destroy]
+  before_action :set_positions, only: [:new, :edit]
 
   def index
     @candidates = Candidate.all
@@ -13,63 +12,47 @@ class Admin::CandidatesController < ApplicationController
   end
 
   def show
-    # @candidate is set by set_candidate
-  end
-
-  def update
-    if @candidate.update(candidate_params)
-      redirect_to admin_candidates_path, notice: "Candidate updated successfully."
-    else
-      # Add this line to debug
-      flash.now[:alert] = @candidate.errors.full_messages.join(", ")
-      render :edit
-    end
+    # @candidate is set in the before_action
   end
 
   def create
     @candidate = Candidate.new(candidate_params)
     if @candidate.save
-      redirect_to admin_candidates_path, notice: "Candidate created successfully."
+      redirect_to admin_candidates_path, notice: 'Candidate created successfully.'
     else
       render :new
     end
   end
 
   def edit
-    # @candidate is loaded by the set_candidate callback
   end
 
   def update
     if @candidate.update(candidate_params)
-      redirect_to admin_candidates_path, notice: "Candidate updated successfully."
+      redirect_to admin_candidates_path, notice: 'Candidate updated successfully.'
     else
-      render :edit
+      render :edit, alert: 'Failed to update candidate.'
     end
   end
-
+  
   def destroy
     @candidate.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_candidates_path, notice: "Candidate deleted successfully." }
-      format.json { head :no_content }
-    end
-  end  
+    redirect_to admin_candidates_path, notice: 'Candidate was successfully deleted.'
+  end
 
   private
 
-  def candidate_params
-    params.require(:candidate).permit(:name, :position_id, :image)
+  def set_candidate
+    @candidate = Candidate.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to admin_candidates_path, alert: "Candidate not found."
   end
 
-  def ensure_admin
-    redirect_to root_path, alert: "Access denied" unless current_user.admin?
-  end
-
-  def load_positions
+  def set_positions
     @positions = Position.all
   end
 
-  def set_candidate
-    @candidate = Candidate.find(params[:id])
+  def candidate_params
+    params.require(:candidate).permit(:name, :position_id, :image)
   end
 end
