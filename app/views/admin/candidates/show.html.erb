@@ -1,0 +1,11 @@
+<h1><%= @candidate.name %></h1>
+
+<p>Position: <%= @candidate.position.name %></p>
+
+<% if @candidate.image.attached? %>
+  <p>Image:</p>
+  <%= image_tag @candidate.image %>
+<% end %>
+
+<%= link_to "Edit Candidate", edit_admin_candidate_path(@candidate) %> |
+<%= link_to "Back to Candidates List", admin_candidates_path %>

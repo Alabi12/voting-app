@@ -1,12 +1,12 @@
 databases:
   - name: church_voting_app_development
     databaseName: church_voting_app_development
-    user: church_voting_app_development
+    user: postgres
     plan: free
 
   - name: church_voting_app_production
     databaseName: church_voting_app_production
-    user: church_voting_app_production
+    user: postgres
     plan: free
 
 services:
@@ -15,7 +15,7 @@ services:
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb -p $PORT"
+    startCommand: "bundle exec rails server"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
