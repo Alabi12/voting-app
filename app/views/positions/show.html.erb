@@ -1,4 +1,15 @@
-<h1 class="candidate-title"><%= @position.name %> - Candidates</h1>
+<% @position.candidates.each do |candidate| %>
+  <div id="candidate_<%= candidate.id %>">
+    <p><%= candidate.name %></p>
+    <p id="candidate_<%= candidate.id %>_votes"><%= candidate.votes.count %> votes</p>
+    <p id="candidate_<%= candidate.id %>_percentage"><%= candidate.vote_percentage || 0 %>%</p>
+
+
+    <%= button_to 'Vote', vote_position_candidate_path(@position, candidate), method: :post, remote: true, class: "vote-button" %>
+  </div>
+<% end %>
+
+<p id="position_<%= @position.id %>_total_votes">Total Votes: <%= @position.candidates.sum { |c| c.votes.count } %></p>
 
 <ul class="candidate-list">
   <% @position.candidates.each do |candidate| %>
@@ -160,3 +171,4 @@
     }
   }
 </style>
+

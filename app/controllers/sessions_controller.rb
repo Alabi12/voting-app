@@ -1,15 +1,13 @@
-# app/controllers/sessions_controller.rb
 class SessionsController < Devise::SessionsController
-  def create
-    super do |resource|
-      if resource.admin?
-        redirect_to admin_dashboard_path and return
-      elsif resource.developer?
-        redirect_to developer_dashboard_path and return
-      else
-        # Assuming other users are voters, redirect them to the voting page
-        redirect_to positions_path and return
-      end
+  protected
+
+  def after_sign_in_path_for(resource)
+    if resource.admin?
+      admin_dashboard_path  # Correct path to admin dashboard
+    elsif resource.developer?
+      developer_dashboard_path  # Ensure this route exists
+    else
+      positions_path  # For regular users (voters)
     end
   end
 end
