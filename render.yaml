@@ -1,12 +1,12 @@
 databases:
   - name: church_voting_app_development
     databaseName: church_voting_app_development
-    user: church_voting_app_development
+    user: postgres
     plan: free
 
   - name: church_voting_app_production
     databaseName: church_voting_app_production
-    user: church_voting_app_production
+    user: postgres
     plan: free
 
 services:
