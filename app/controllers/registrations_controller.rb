@@ -11,9 +11,15 @@ class RegistrationsController < Devise::RegistrationsController
     @user.developer = params[:user][:developer] == '1'
 
     if @user.save
-      flash[:notice] = "Sign up successful. Please log in with your credentials."
-      # Redirect to sign-in page after successful signup
-      redirect_to new_user_session_path
+      flash[:notice] = "Welcome! You have signed up successfully."
+      # Redirect based on role
+      if @user.admin?
+        redirect_to admin_dashboard_path
+      elsif @user.developer?
+        redirect_to developer_dashboard_path
+      else
+        redirect_to positions_path # Regular users
+      end
     else
       render :new # Render the signup page again with error messages
     end
