@@ -10,9 +10,8 @@ class User < ApplicationRecord
 
          # Method to check if the user has already voted for a position
          def voted_for?(position)
-           votes.exists?(position_id: position.id)
-         end
-
+          votes.joins(:candidate).where(candidates: { position_id: position.id }).exists?
+        end
 
   # Add these attributes to your model
   attribute :admin, :boolean, default: false

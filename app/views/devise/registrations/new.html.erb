@@ -1,3 +1,4 @@
+
 <!-- app/views/devise/registrations/new.html.erb -->
 <% if @user.errors.any? %>
   <div id="error_explanation" class="alert alert-danger">
@@ -10,9 +11,9 @@
   </div>
 <% end %>
 
-<h1>Sign Up</h1>
+<h1 class="form-title">Sign Up</h1>
 
-<%= form_for @user, url: registration_path(:user) do |f| %>
+<%= form_for @user, url: registration_path(:user), html: { class: 'signup-form' } do |f| %>
   <div class="form-group">
     <%= f.label :email, class: 'form-label' %>
     <%= f.email_field :email, class: 'form-input' %>
@@ -30,12 +31,12 @@
 
   <div class="form-group">
     <%= f.label :developer, "Sign up as Developer", class: 'form-label' %>
-    <%= f.check_box :developer %>
+    <%= f.check_box :developer, class: 'form-check' %>
   </div>
 
   <div class="form-group">
     <%= f.label :admin, "Sign up as Admin", class: 'form-label' %>
-    <%= f.check_box :admin %>
+    <%= f.check_box :admin, class: 'form-check' %>
   </div>
 
   <div class="form-actions">
@@ -44,25 +45,23 @@
 <% end %>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-
-  h1 {
+  /* General Form Styling */
+  .form-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
   }
 
-  .alert {
-    padding: 10px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    margin-bottom: 20px;
+  .signup-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   .form-group {
@@ -70,43 +69,74 @@
   }
 
   .form-label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
     margin-bottom: 5px;
-    color: #333;
+    display: block;
+    color: #555;
   }
 
   .form-input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
   }
 
   .form-input:focus {
-    border-color: #007BFF;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .form-check {
+    margin-left: 10px;
+    transform: scale(1.2);
   }
 
   .form-actions {
-    text-align: center;
     margin-top: 20px;
+    text-align: center;
   }
 
-  .btn {
-    padding: 10px 15px;
-    background-color: #007BFF;
+  .btn-primary {
+    padding: 12px 20px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
   }
 
-  .btn:hover {
+  .btn-primary:hover {
     background-color: #0056b3;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .signup-form {
+      padding: 15px;
+    }
+
+    .form-title {
+      font-size: 24px;
+    }
+
+    .form-label {
+      font-size: 14px;
+    }
+
+    .form-input {
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      font-size: 14px;
+      padding: 10px;
+    }
   }
 </style>

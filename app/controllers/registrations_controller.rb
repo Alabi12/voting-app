@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    @user = User.new(sign_up_params) # Ensure parameters are being passed correctly
+    @user = User.new(sign_up_params)
 
     # Assign roles based on the checkboxes
     @user.admin = params[:user][:admin] == '1'
@@ -14,14 +14,14 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:notice] = "Welcome! You have signed up successfully."
       # Redirect based on role
       if @user.admin?
-        redirect_to admin_admin_dashboard_path
+        redirect_to admin_dashboard_path
       elsif @user.developer?
         redirect_to developer_dashboard_path
       else
         redirect_to positions_path # Regular users
       end
     else
-      render :new # This will render the new view and show the errors
+      render :new # Render the signup page again with error messages
     end
   end
 

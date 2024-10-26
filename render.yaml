@@ -1,23 +1,29 @@
 databases:
-  - name: postgres
-    databaseName: church_voting_development
+  - name: postgresql
+    databaseName: church_voting_app_development
+    user: postgres
+    plan: free
+
+  - name: postgresql
+    databaseName: church_voting_app_production
     user: postgres
     plan: free
 
 services:
   - type: web
-    name: postgres
+    name: postgresql
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
-    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec rails server"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: postgres
+          name: postgresql
           property: connectionString
+      - key: RAILS_ENV
+        value: production
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
-        value: 2 # sensible default
+        value: 2

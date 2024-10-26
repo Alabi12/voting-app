@@ -14,6 +14,17 @@ class CandidatesController < ApplicationController
       redirect_to candidates_path, notice: "Thank you for voting!"
     end
   end
+
+  def show
+    @candidate = Candidate.find(params[:id])
+
+    if !current_user.admin?
+      # You can redirect or restrict access to the candidate details here, 
+      # or just prevent certain sensitive information from being shown.
+      flash[:alert] = "You do not have permission to view this information."
+      redirect_to candidates_path
+    end
+  end
   
   def new
     @candidate = @position.candidates.build

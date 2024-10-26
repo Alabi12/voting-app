@@ -1,155 +1,16 @@
 <!-- app/views/admin/votes/summary.html.erb -->
-<h1>Vote Summary</h1>
+<div class="container">
+  <h1>Admin Summary</h1>
+  <p>Total Voters: <%= @total_voters %></p>
+  <p>Total Candidates: <%= @total_candidates %></p>
+  <p>Total Votes Cast: <%= @total_votes %></p>
 
-<!-- Display Total Votes Cast -->
-<p class="total-votes"><strong>Total Votes Cast: <%= @votes.count %></strong></p>
-
-<table class="vote-summary-table">
-  <thead>
-    <tr>
-      <th>Position</th>
-      <th>Candidate</th>
-      <th>Total Votes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @votes.group_by(&:position).each do |position, position_votes| %>
-      <% if position.present? && position_votes.any? %>
-        <% position_votes.group_by(&:candidate).each_with_index do |(candidate, candidate_votes), index| %>
-          <tr>
-            <% if index == 0 %>
-              <td rowspan="<%= position_votes.group_by(&:candidate).count %>"><%= position.name %></td>
-            <% end %>
-            <td><%= candidate.name if candidate.present? %></td>
-            <td><%= candidate_votes.count %></td>
-          </tr>
-        <% end %>
-      <% end %>
+  <h2>Votes by Candidate</h2>
+  <ul>
+    <% @votes_by_candidate.each do |candidate_id, votes| %>
+      <% candidate = Candidate.find(candidate_id) %>
+      <% percentage = @total_votes > 0 ? (votes.to_f / @total_votes * 100).round(2) : 0 %>
+      <li><strong><%= candidate.name %>:</strong> <%= votes %> votes (<%= percentage %>%)</li>
     <% end %>
-  </tbody>
-</table>
-
-<!-- Chart Container -->
-<canvas id="voteChart" width="400" height="200"></canvas>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('voteChart').getContext('2d');
-    const labels = [];
-    const dataVotes = [];
-
-    <% @votes.group_by(&:candidate).each do |candidate, votes| %>
-      <% if candidate.present? %>
-        labels.push("<%= candidate.name %>");
-        dataVotes.push(<%= votes.count %>);
-      <% end %>
-    <% end %>
-
-    const voteChart = new Chart(ctx, {
-      type: 'bar', // or 'pie', 'line', etc.
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Total Votes per Candidate',
-          data: dataVotes,
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Number of Votes'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Candidate'
-            }
-          }
-        }
-      }
-    });
-  });
-</script>
-
-<!-- Back to Dashboard Link -->
-<%= link_to 'Dashboard', root_path, class: 'action-link' %>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #007BFF; /* Blue color for the header */
-  }
-
-  .total-votes {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-  }
-
-  .vote-summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-
-  .vote-summary-table th,
-  .vote-summary-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .vote-summary-table th {
-    background-color: #007BFF;
-    color: white;
-    font-weight: bold;
-  }
-
-  .vote-summary-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-
-  .vote-summary-table tr:hover {
-    background-color: #e9ecef; /* Light grey on hover */
-  }
-
-  canvas {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    background-color: white; /* Background for the chart */
-  }
-
-  .action-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-
-  .action-link:hover {
-    background-color: #0056b3;
-  }
-</style>
+  </ul>
+</div>
