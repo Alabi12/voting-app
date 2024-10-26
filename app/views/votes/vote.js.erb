@@ -1,0 +1,8 @@
+// app/views/votes/vote.js.erb
+var candidateId = "<%= candidate.id %>";  // Ensure you're using the correct instance variable
+var voteCountElement = document.querySelector('#candidate-' + candidateId + ' .vote-count');
+
+// Update the displayed vote count
+if (voteCountElement) {
+  voteCountElement.innerText = parseInt(voteCountElement.innerText) + 1;
+}

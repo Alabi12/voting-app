@@ -1,6 +1,6 @@
 <h1>Candidates List</h1>
 
-<table>
+<table class="candidates-table">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,12 +14,28 @@
         <td><%= candidate.name %></td>
         <td><%= candidate.position.name %></td>
         <td>
-          <%= link_to 'Edit', edit_admin_candidate_path(candidate) %>
-          <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Edit', edit_admin_candidate_path(candidate), class: "action-link" %>
+          <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-link action-link" %>
         </td>
       </tr>
+
+    </thead>
+    <tbody>
+      <% @candidates.each do |candidate| %>
+        <tr>
+          <td><%= candidate.name %></td>
+          <td><%= candidate.position.name %></td>
+          <td>
+            <%= link_to "Edit", edit_admin_candidate_path(candidate) %>
+            <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-link action-link" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Candidate', new_admin_candidate_path %>
+<a href="<%= new_admin_candidate_path %>" class="new-candidate-button">Create New Candidate</a>
