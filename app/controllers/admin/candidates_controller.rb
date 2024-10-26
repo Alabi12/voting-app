@@ -16,6 +16,16 @@ class Admin::CandidatesController < ApplicationController
     # @candidate is set by set_candidate
   end
 
+  def update
+    if @candidate.update(candidate_params)
+      redirect_to admin_candidates_path, notice: "Candidate updated successfully."
+    else
+      # Add this line to debug
+      flash.now[:alert] = @candidate.errors.full_messages.join(", ")
+      render :edit
+    end
+  end
+
   def create
     @candidate = Candidate.new(candidate_params)
     if @candidate.save
