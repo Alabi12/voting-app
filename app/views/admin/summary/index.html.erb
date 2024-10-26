@@ -1,4 +1,3 @@
-<!-- app/views/admin/summary/index.html.erb -->
 <div class="container">
   <h1>Admin Summary</h1>
 
@@ -6,13 +5,18 @@
   <p>Total Candidates: <%= @total_candidates %></p>
   <p>Total Votes Cast: <%= @total_votes %></p>
 
-  <h2>Votes by Candidate</h2>
-  <ul>
-    <% @votes_by_candidate.each do |candidate_name, votes| %>
-      <% percentage = @total_votes > 0 ? (votes.to_f / @total_votes * 100).round(2) : 0 %> <!-- Calculate percentage -->
-      <li><strong><%= candidate_name %>:</strong> <%= votes %> votes (<%= percentage %>%)</li>
-    <% end %>
-  </ul>
+  <h2>Votes by Position</h2>
+  <% @positions.each do |position| %>
+    <h3><%= position.name %> - Total Votes: <%= position.total_votes %></h3>
+    <ul>
+      <% position.candidates.each do |candidate| %>
+        <% percentage = position.total_votes > 0 ? (candidate.votes.count.to_f / position.total_votes * 100).round(2) : 0 %>
+        <li>
+          <strong><%= candidate.name %>:</strong> <%= candidate.votes.count %> votes (<%= percentage %>%)
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <style>
@@ -21,7 +25,7 @@
     padding: 20px;
   }
 
-  h1, h2 {
+  h1, h2, h3 {
     margin-bottom: 20px;
     color: #333;
   }

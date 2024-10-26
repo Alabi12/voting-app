@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # After sign in redirection
   def after_sign_in_path_for(resource)
     if resource.admin?
-      admin_admin_dashboard_path
+      admin_dashboard_path
     elsif resource.developer?
       developer_dashboard_path
     else

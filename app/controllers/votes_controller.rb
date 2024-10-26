@@ -1,55 +1,33 @@
 class VotesController < ApplicationController
-  before_action :authenticate_user!  # Ensure user is logged in before voting
+  before_action :authenticate_user!
   before_action :ensure_voter_role
 
-  def vote
+  def create
+    @position = Position.find(params[:position_id])
+    @candidate = Candidate.find(params[:candidate_id])
 
-    # Use params[:position_id] and params[:id] to find the candidate
-    candidate = Candidate.find(params[:candidate_id]) # This should match the parameter name in the routes
-
-    candidate = Candidate.find(params[:candidate_id])
-
-
-    if current_user.voted_for?(candidate.position)
-      render json: { error: "You have already voted for this position." }, status: :forbidden
+    if current_user.voted_for?(@position)
+      redirect_to @position, alert: "You've already voted for this position."
     else
-      # Create a new vote
-      Vote.create(candidate: candidate, user: current_user, position: candidate.position)
-
-      # Respond to JS to update the vote count dynamically
-      respond_to do |format|
-        format.js { render 'update_vote_count', locals: { candidate: candidate } }
-      end
+      @candidate.votes.create(user: current_user) # Assuming a Vote model exists
+      redirect_to @position, notice: "Thank you for your vote!"
     end
   end
 
-      # Update the candidate's vote count dynamically
-      update_vote_count(candidate)
+  def vote
+    candidate = Candidate.find(params[:candidate_id])
 
-      redirect_to positions_path, notice: "Thank you for voting!"  # Redirect after voting
-    end
-  end  
+    if current_user.voted_for?(candidate.position)
+      redirect_to positions_path, alert: "You have already voted for this position."
+    else
+      Vote.create(candidate: candidate, user: current_user, position: candidate.position)
+      candidate.increment!(:votes_count)  # Increment the vote count
 
-
-  def summary
-    @positions = Position.includes(candidates: :votes)  # Preload candidates and their votes
-
-    # Calculate total votes and percentage for each candidate
-    @positions.each do |position|
-      total_votes = position.candidates.sum { |c| c.votes.count }
-      
-      position.candidates.each do |candidate|
-        candidate.vote_percentage = total_votes.zero? ? 0 : (candidate.votes.count.to_f / total_votes * 100).round(2)
-      end
+      redirect_to positions_path, notice: "Thank you for voting!"
     end
   end
 
   private
-
-  def update_vote_count(candidate)
-    # Increment the vote count for the candidate
-    candidate.increment!(:votes_count)  # Assuming you have a `votes_count` column in your candidates table
-  end
 
   def ensure_voter_role
     redirect_to root_path, alert: "You are not authorized to vote." unless current_user.voter?
