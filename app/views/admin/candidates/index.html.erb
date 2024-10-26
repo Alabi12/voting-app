@@ -18,6 +18,22 @@
           <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-link action-link" %>
         </td>
       </tr>
+
+    </thead>
+    <tbody>
+      <% @candidates.each do |candidate| %>
+        <tr>
+          <td><%= candidate.name %></td>
+          <td><%= candidate.position.name %></td>
+          <td>
+            <%= link_to "Edit", edit_admin_candidate_path(candidate) %>
+            <%= link_to 'Delete', admin_candidate_path(candidate), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-link action-link" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
     <% end %>
   </tbody>
 </table>
