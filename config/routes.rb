@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   get 'render/index'
   devise_for :users, controllers: { registrations: 'registrations' }
 
+
+  # get 'admin/dashboard', to: 'admin/dashboard#show', as: 'admin_dashboard'
+
   # Admin routes
   namespace :admin do
     resources :developers, only: [:new, :create]

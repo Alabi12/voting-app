@@ -14,7 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:notice] = "Welcome! You have signed up successfully."
       # Redirect based on role
       if @user.admin?
-        redirect_to admin_dashboard_path
+        redirect_to admin_admin_dashboard_path
       elsif @user.developer?
         redirect_to developer_dashboard_path
       else
