@@ -7,7 +7,8 @@ class VotesController < ApplicationController
 
     # Check if the user has already voted for this position to avoid duplicate votes
     if current_user.votes.exists?(position: @candidate.position)
-      render json: { error: "You have already voted for this position." }, status: :forbidden
+      # Redirect with an alert if the user has already voted
+      redirect_to positions_path, alert: "You have already voted for this position."
     else
       Vote.create(candidate: @candidate, user: current_user, position: @candidate.position)
       @candidate.increment!(:votes_count)  # Ensure vote increments only once
