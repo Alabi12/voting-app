@@ -1,4 +1,49 @@
 <!-- app/views/votes/vote.turbo_stream.erb -->
-<%= turbo_stream.replace "candidate-#{@candidate.id}-votes" do %>
-  <span id="candidate-<%= @candidate.id %>-votes"><%= @candidate.votes_count %></span>
+<%= turbo_stream.replace "candidate-#{@candidate.id}" do %>
+  <div class="candidate" id="candidate-<%= @candidate.id %>">
+    <h2 class="candidate-name"><%= @candidate.name %></h2>
+    <p class="vote-cast-message">Your vote has been cast! Thank you!</p> <!-- Message indicating the vote was cast -->
+    <button class="vote-button" disabled>Vote</button> <!-- Disable the vote button -->
+  </div>
 <% end %>
+
+<%= turbo_stream.append "flash", partial: "shared/flash", locals: { message: "Thank you for voting!" } %>
+
+<script>
+  // Redirect after a short delay to allow the user to see the message
+  setTimeout(() => {
+    window.location = "<%= positions_path %>";
+  }, 2000); // Adjust the timeout as necessary (2000 ms = 2 seconds)
+</script>
+
+<style>
+  .candidate {
+      background-color: #ecf6f9; /* Light blue background for the candidate box */
+      padding: 15px; /* Padding for the candidate box */
+      border-radius: 5px; /* Rounded corners */
+      margin-bottom: 10px; /* Space between candidate boxes */
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+
+  .candidate-name {
+      color: #2980b9; /* Blue color for candidate names */
+      font-size: 24px; /* Font size for candidate names */
+      margin-bottom: 5px; /* Space below the candidate name */
+  }
+
+  .vote-cast-message {
+      color: #27ae60; /* Green color for success message */
+      font-size: 16px; /* Font size for the message */
+      margin-bottom: 10px; /* Space below the message */
+  }
+
+  .vote-button {
+      background-color: #95a5a6; /* Grey color for disabled button */
+      color: #fff; /* White text for the button */
+      padding: 10px 15px; /* Padding for the button */
+      border: none; /* No border */
+      border-radius: 5px; /* Rounded corners */
+      cursor: not-allowed; /* Cursor style for disabled button */
+      font-size: 16px; /* Font size for button text */
+  }
+</style>

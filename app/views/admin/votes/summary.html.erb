@@ -1,16 +1,101 @@
-<!-- app/views/admin/votes/summary.html.erb -->
-<div class="container">
-  <h1>Admin Summary</h1>
-  <p>Total Voters: <%= @total_voters %></p>
-  <p>Total Candidates: <%= @total_candidates %></p>
-  <p>Total Votes Cast: <%= @total_votes %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Votes Summary</title>
+    <style>
+        .container {
+            text-align: center; /* Center text alignment */
+            padding: 20px; /* Padding around the container */
+            background-color: #f9f9f9; /* Light background color for contrast */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 800px; /* Max width for the container */
+            margin: auto; /* Center the container on the page */
+        }
 
-  <h2>Votes by Candidate</h2>
-  <ul>
-    <% @votes_by_candidate.each do |candidate_id, votes| %>
-      <% candidate = Candidate.find(candidate_id) %>
-      <% percentage = @total_votes > 0 ? (votes.to_f / @total_votes * 100).round(2) : 0 %>
-      <li><strong><%= candidate.name %>:</strong> <%= votes %> votes (<%= percentage %>%)</li>
-    <% end %>
-  </ul>
-</div>
+        h1, h2 {
+            margin-bottom: 20px; /* Space below headings */
+            color: #2980b9; /* Blue color for headings */
+        }
+
+        .summary-item {
+            font-size: 20px; /* Font size for summary items */
+            margin-bottom: 10px; /* Space below summary items */
+            color: #333; /* Dark text color for readability */
+        }
+
+        table {
+            width: 100%; /* Full width for the table */
+            border-collapse: collapse; /* Remove double borders */
+            margin-top: 20px; /* Space above the table */
+        }
+
+        th, td {
+            border: 1px solid #ccc; /* Light gray border for table cells */
+            padding: 10px; /* Padding inside cells */
+            text-align: left; /* Left-align text */
+        }
+
+        th {
+            background-color: #2980b9; /* Blue background for header */
+            color: white; /* White text for header */
+        }
+
+        .candidate-image {
+            width: 50px; /* Set a fixed width for images */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .candidate-item {
+            margin: 10px 0; /* Space between candidate items */
+            color: #555; /* Slightly lighter color for candidate names */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Summary</h1>
+
+        <div class="summary">
+            <p class="summary-item">Total Voters: <%= @total_voters %></p>
+            <p class="summary-item">Total Candidates: <%= @total_candidates %></p>
+            <p class="summary-item">Total Votes Cast: <%= @total_votes %></p>
+        </div>
+
+        <h2>Votes by Position</h2>
+        <% @positions.each do |position| %>
+            <h3><%= position.name %></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Candidate</th>
+                        <th>Votes</th>
+                        <th>Vote Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% position.candidates.each do |candidate| %>
+                        <% votes = candidate.votes.count %>
+                        <% percentage = @total_votes > 0 ? (votes.to_f / @total_votes * 100).round(2) : 0 %>
+                        <tr>
+                            <td>
+                                <% if candidate.image.attached? %>
+                                    <%= image_tag candidate.image, alt: "#{candidate.name}'s image", class: "candidate-image" %>
+                                <% else %>
+                                    <p>No image available</p> <!-- Fallback message if no image is present -->
+                                <% end %>
+                            </td>
+                            <td class="candidate-item"><%= candidate.name %></td>
+                            <td><%= votes %></td>
+                            <td><%= percentage %>%</td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
+    </div>
+</body>
+</html>

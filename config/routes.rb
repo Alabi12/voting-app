@@ -12,10 +12,10 @@ Rails.application.routes.draw do
     get 'votes_summary', to: 'votes#summary'
   end
 
-  resources :positions do
+  resources :positions, only: [:index, :show] do
     resources :candidates do
       member do
-        post 'vote', to: 'votes#vote', as: 'vote'
+        post 'vote', to: 'votes#vote' # Add this nested route
       end
     end
   end

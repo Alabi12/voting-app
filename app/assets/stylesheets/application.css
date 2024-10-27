@@ -14,3 +14,84 @@
  *= require_self
  */
 
+ .thank-you-message {
+  font-size: 16px;
+  color: #28a745; /* Green color for success message */
+  margin-top: 10px;
+}
+
+/* vote page */
+body {
+  font-family: 'Arial', sans-serif; /* Set a professional font for the page */
+  background-color: #f5f5f5; /* Light grey background for the whole page */
+  margin: 0;
+  padding: 20px; /* Add padding to the body */
+}
+
+h1 {
+  text-align: center; /* Center align the main heading */
+  color: #333; /* Dark text color */
+  margin-bottom: 30px; /* Space below the heading */
+  font-size: 28px; /* Font size for the main heading */
+}
+
+.candidate {
+  display: flex;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Inner spacing */
+  margin: 15px auto; /* Space between candidates, centered */
+  text-align: center; /* Center the content */
+  background-color: #fff; /* White background for candidate cards */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth transitions */
+  max-width: 400px; /* Maximum width for each candidate card */
+}
+
+.candidate:hover {
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.candidate h2 {
+  font-size: 24px; /* Font size for candidate names */
+  color: #2c3e50; /* Darker text color for candidate names */
+  margin: 10px 0; /* Space above and below the name */
+}
+
+.candidate-image {
+  width: 80px; /* Set a fixed width for the image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Circular image */
+  margin: 10px 0; /* Space above and below the image */
+  border: 2px solid #2980b9; /* Blue border around the image */
+}
+
+.vote-button {
+  padding: 12px 25px; /* Spacing inside the button */
+  background-color: #2980b9; /* Blue background for the button */
+  color: white; /* White text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size for the button text */
+  transition: background-color 0.3s, transform 0.2s; /* Transition for hover effect */
+  margin-top: 15px; /* Space above the button */
+}
+
+.vote-button:hover {
+  background-color: #1a5276; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.vote-cast-message {
+  color: #28a745; /* Green color for the success message */
+  font-size: 16px; /* Size of the message text */
+  margin-top: 10px; /* Space above the message */
+}
+
+.no-image {
+  color: #e74c3c; /* Red color for the fallback message */
+  font-size: 14px; /* Size for the fallback message */
+}
+
