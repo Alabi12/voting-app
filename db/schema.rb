@@ -49,7 +49,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_18_134539) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "votes_count"
-    t.integer "vote_count", default: 0, null: false
     t.index ["position_id"], name: "index_candidates_on_position_id"
   end
 

@@ -6,6 +6,7 @@ class Admin::VotesController < ApplicationController
     @votes = Vote.includes(:candidate, :position)
     @total_votes = Vote.count
     @total_candidates = Candidate.count
+    @positions = Position.includes(candidates: :votes) # Make sure to include necessary associations
     @total_voters = User.where(role: 'voter').count
     @votes_by_candidate = @votes.group_by(&:candidate_id).transform_values(&:count)
   end

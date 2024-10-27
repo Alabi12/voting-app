@@ -1,78 +1,91 @@
-<div class="container">
-  <h1 class="position-title">Select a Position to Vote</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select a Position to Vote</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Set a professional font for the page */
+            background-color: #f5f5f5; /* Light grey background for the whole page */
+            margin: 0;
+            padding: 20px; /* Add padding to the body */
+        }
 
-  <ul class="position-list">
-    <% @positions.each do |position| %>
-      <li class="position-item">
-        <%= link_to position.name, position_path(position), class: "position-link" %>
-      </li>
-    <% end %>
-  </ul>
+        .container {
+            max-width: 800px; /* Maximum width for the container */
+            margin: 0 auto; /* Center the container */
+            background-color: #fff; /* White background for the container */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Inner spacing */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
 
-  <p class="home-link">
-    <%= link_to 'Home', root_path, class: "home-button" %> 
-  </p>
-</div>
+        .position-title {
+            text-align: center; /* Center align the title */
+            color: #333; /* Dark text color */
+            margin-bottom: 30px; /* Space below the title */
+            font-size: 28px; /* Font size for the title */
+        }
 
-<style>
+        .position-list {
+            list-style-type: none; /* Remove default list styling */
+            padding: 0; /* Remove default padding */
+        }
 
-  .container {
-    text-align: center; /* Center text inside the container */
-  }
+        .position-item {
+            margin: 15px 0; /* Space between position items */
+        }
 
-  .position-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-  }
+        .position-link {
+            display: block; /* Make the link a block element */
+            padding: 12px 20px; /* Padding inside the link */
+            background-color: #2980b9; /* Blue background for the link */
+            color: white; /* White text color */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            text-align: center; /* Center the link text */
+            transition: background-color 0.3s, transform 0.2s; /* Transition for hover effect */
+        }
 
-  .position-list {
-    display: grid; /* Use grid layout */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid with minimum column width */
-    gap: 15px; /* Space between grid items */
-    list-style-type: none;
-    padding: 0;
-    max-width: 800px; /* Limit the width of the list */
-    margin: 0 auto; /* Center the list on the page */
-  }
+        .position-link:hover {
+            background-color: #1a5276; /* Darker blue on hover */
+            transform: scale(1.05); /* Slightly enlarge the link on hover */
+        }
 
-  .position-item {
-    text-align: center; /* Center the text in the list item */
-  }
+        .home-link {
+            text-align: center; /* Center align the home link */
+            margin-top: 20px; /* Space above the home link */
+        }
 
-  .position-link {
-    display: block; /* Make the link fill the entire grid item */
-    padding: 20px; /* Increased padding for a button-like appearance */
-    background-color: #28a745; /* Green color for position links */
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.2s; /* Transition for hover effects */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
+        .home-button {
+            padding: 10px 20px; /* Padding for the home button */
+            background-color: #27ae60; /* Green background for the button */
+            color: white; /* White text color */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Transition for hover effect */
+        }
 
-  .position-link:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: scale(1.05); /* Slightly enlarge the button on hover */
-  }
+        .home-button:hover {
+            background-color: #219150; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="position-title">Select a Position to Vote</h1>
 
-  .home-link {
-    text-align: center;
-    margin-top: 20px; /* Spacing above the home link */
-  }
+        <!-- Position list with links to individual position pages -->
+        <ul class="position-list">
+            <% @positions.each do |position| %>
+                <li class="position-item">
+                    <%= link_to position.name, position_path(position), class: "position-link" %>
+                </li>
+            <% end %>
+        </ul>
 
-  .home-button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007BFF; /* Blue color for the home button */
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-
-  .home-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-</style>
+        <p class="home-link">
+            <%= link_to 'Home', root_path, class: "home-button" %> 
+        </p>
+    </div>
+</body>
+</html>

@@ -1,10 +1,63 @@
-<% @positions.each do |position| %>
-  <h2><%= position.name %></h2>
-  <ul>
-    <% position.candidates.each do |candidate| %>
-      <li>
-        <%= candidate.name %> - <%= candidate.votes.count %> votes (<%= candidate.vote_percentage %>%)
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Positions and Candidates</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Set a professional font for the page */
+            background-color: #f5f5f5; /* Light grey background for the whole page */
+            margin: 0;
+            padding: 20px; /* Add padding to the body */
+        }
+
+        .container {
+            max-width: 800px; /* Maximum width for the container */
+            margin: 0 auto; /* Center the container */
+            background-color: #fff; /* White background for the container */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Inner spacing */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        h2 {
+            color: #2980b9; /* Blue color for position titles */
+            margin-top: 20px; /* Space above position titles */
+            font-size: 24px; /* Font size for position titles */
+            border-bottom: 2px solid #2980b9; /* Underline the title */
+            padding-bottom: 5px; /* Space between title and underline */
+        }
+
+        ul {
+            list-style-type: none; /* Remove default list styling */
+            padding-left: 0; /* Remove default padding */
+        }
+
+        li {
+            background-color: #ecf6f9; /* Light blue background for list items */
+            margin: 10px 0; /* Space between list items */
+            padding: 10px; /* Padding for list items */
+            border-radius: 5px; /* Rounded corners for list items */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for list items */
+        }
+
+        .votes-info {
+            color: #555; /* Dark grey for votes information */
+            font-size: 14px; /* Font size for votes information */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <% @positions.each do |position| %>
+            <h2><%= position.name %></h2>
+            <ul>
+                <% position.candidates.each do |candidate| %>
+                    <li>
+                        <%= candidate.name %> - <span class="votes-info"><%= candidate.votes.count %> votes (<%= candidate.vote_percentage %>%)</span>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+    </div>
+</body>
+</html>

@@ -1,9 +1,7 @@
-<h1>Edit Candidate</h1>
-
-<%= form_with model: [:admin, @candidate], local: true do |form| %>
+<%= form_with model: @candidate, url: admin_candidate_path(@candidate), method: :patch, local: true do |form| %>
   <div>
-    <%= form.label :name, "Candidate Name" %>
-    <%= form.text_field :name, required: true %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   </div>
 
   <div>
@@ -12,17 +10,11 @@
   </div>
 
   <div>
-    <%= form.label :image, "Candidate Image" %>
+    <%= form.label :image %>
     <%= form.file_field :image %>
-    <% if @candidate.image.attached? %>
-      <p>Current Image:</p>
-      <%= image_tag @candidate.image %>
-    <% end %>
   </div>
 
   <div>
-    <%= form.submit "Update Candidate" %>
+    <%= form.submit "Save Changes" %>
   </div>
 <% end %>
-
-<%= link_to "Back to Candidates", admin_candidates_path %>

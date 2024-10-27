@@ -1,105 +1,98 @@
-<h1 class="candidate-title"><%= @position.name %> - Candidates</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vote for <%= @position.name %></title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Set a professional font for the page */
+            background-color: #f5f5f5; /* Light grey background for the whole page */
+            margin: 0;
+            padding: 20px; /* Add padding to the body */
+        }
 
-<ul class="candidate-list">
-  <% @position.candidates.each do |candidate| %>
-    <li class="candidate-item" id="candidate-<%= candidate.id %>"> <!-- Added ID for selection -->
-      <% if candidate.image.attached? %>
-        <%= image_tag candidate.image, alt: candidate.name, class: "candidate-image" %>
-      <% else %>
-        <p class="no-image">No image available</p>
-      <% end %>
-      <div class="candidate-info">
-        <span class="candidate-name"><%= candidate.name %></span> - 
-        <span class="vote-count"><%= candidate.votes_count %> votes</span> <!-- Show the current vote count -->
-        <% if user_signed_in? && !current_user.voted_for?(@position) %>
-          <%= button_to 'Vote', vote_position_candidate_path(@position, candidate), method: :post, class: "vote-button" %>
+        h1 {
+            text-align: center; /* Center align the main heading */
+            color: #333; /* Dark text color */
+            margin-bottom: 30px; /* Space below the heading */
+            font-size: 28px; /* Font size for the main heading */
+        }
+
+        .candidate {
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Inner spacing */
+            margin: 15px auto; /* Space between candidates, centered */
+            text-align: center; /* Center the content */
+            background-color: #fff; /* White background for candidate cards */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            transition: transform 0.2s, box-shadow 0.2s; /* Smooth transitions */
+            max-width: 400px; /* Maximum width for each candidate card */
+        }
+
+        .candidate:hover {
+            transform: translateY(-3px); /* Lift effect on hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+
+        .candidate h2 {
+            font-size: 24px; /* Font size for candidate names */
+            color: #2c3e50; /* Darker text color for candidate names */
+            margin: 10px 0; /* Space above and below the name */
+        }
+
+        .candidate-image {
+            width: 100px; /* Set a fixed width for the image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 50%; /* Circular image */
+            margin: 10px 0; /* Space above and below the image */
+            border: 2px solid #2980b9; /* Blue border around the image */
+        }
+
+        .vote-button {
+            padding: 12px 25px; /* Spacing inside the button */
+            background-color: #2980b9; /* Blue background for the button */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size for the button text */
+            transition: background-color 0.3s, transform 0.2s; /* Transition for hover effect */
+            margin-top: 15px; /* Space above the button */
+        }
+
+        .vote-button:hover {
+            background-color: #1a5276; /* Darker blue on hover */
+            transform: scale(1.05); /* Slightly enlarge the button on hover */
+        }
+
+        .vote-cast-message {
+            color: #28a745; /* Green color for the success message */
+            font-size: 16px; /* Size of the message text */
+            margin-top: 10px; /* Space above the message */
+        }
+
+        .no-image {
+            color: #e74c3c; /* Red color for the fallback message */
+            font-size: 14px; /* Size for the fallback message */
+        }
+    </style>
+</head>
+<body>
+    <h1>Vote for <%= @position.name %></h1>
+
+    <% @candidates.each do |candidate| %>
+      <div class="candidate" id="candidate-<%= candidate.id %>">
+        <h2><%= candidate.name %></h2>
+
+        <% if candidate.image.attached? %>
+          <%= image_tag candidate.image, alt: "#{candidate.name}'s image", class: "candidate-image" %>
         <% else %>
-          <button class="vote-button" disabled>Voted</button>
+          <p class="no-image">No image available</p> <!-- Fallback message if no image is present -->
         <% end %>
+        
+        <%= button_to 'Vote', vote_position_candidate_path(position_id: @position.id, candidate_id: candidate.id), 
+                    method: :post, data: { turbo: true, disable_with: "Voting..." }, class: 'vote-button' %>
       </div>
-    </li>
-  <% end %>
-</ul>
-
-<style>
-  /* Your existing CSS styles remain unchanged */
-  .candidate-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 30px 0;
-    color: #333;
-    text-align: center;
-  }
-
-  .candidate-list {
-    list-style-type: none;
-    padding: 0;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .candidate-item {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-  }
-
-  .candidate-item:hover {
-    background-color: #f9f9f9;
-    transform: translateY(-2px);
-  }
-
-  .candidate-image {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 5px;
-    margin-right: 15px;
-    object-fit: cover;
-  }
-
-  .candidate-info {
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .no-image {
-    color: #777;
-  }
-
-  .candidate-name {
-    font-weight: bold;
-    font-size: 20px;
-    color: #333;
-  }
-
-  .vote-count {
-    margin-left: 10px;
-    color: #555;
-    font-size: 18px;
-  }
-
-  .vote-button {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 20px;
-  }
-
-  .vote-button:hover {
-    background-color: #0056b3;
-  }
-
-  /* Add your responsive styles here */
-</style>
+    <% end %>
+</body>
+</html>
