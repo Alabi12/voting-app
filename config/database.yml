@@ -20,5 +20,6 @@ production:
   <<: *default
   database: church_voting_app_production
   # Production credentials should be managed securely; consider using environment variables
+  url: <%= ENV['DATABASE_URL'] %>
   username: postgres
   password: wolo

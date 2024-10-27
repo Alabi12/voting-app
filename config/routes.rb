@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  root 'home#index'
   devise_for :users, controllers: { registrations: 'registrations' }
 
-  
   namespace :admin do
     get 'dashboard', to: 'dashboard#index', as: 'dashboard' # This creates admin_dashboard_path
     resources :candidates, only: [:index, :new, :create, :edit, :update, :destroy, :show]
@@ -20,5 +20,4 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'home#index'
 end
