@@ -11,7 +11,7 @@ databases:
 
 services:
   - type: web
-    name: postgres
+    name: rails
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
