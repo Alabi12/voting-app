@@ -58,6 +58,7 @@
             font-size: 16px; /* Font size for the button text */
             transition: background-color 0.3s, transform 0.2s; /* Transition for hover effect */
             margin-top: 15px; /* Space above the button */
+            text-decoration: none; /* Remove underline from the link */
         }
 
         .vote-button:hover {
@@ -94,5 +95,6 @@
                     method: :post, data: { turbo: true, disable_with: "Voting..." }, class: 'vote-button' %>
       </div>
     <% end %>
+          <%= link_to 'Back', positions_path, class: 'vote-button' %>
 </body>
 </html>
