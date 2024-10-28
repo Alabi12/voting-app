@@ -3,54 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Summary</title>
+    <title>Zimm YPG, Nungua-Voting Results Summary</title>
     <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+            color: #333;
+        }
+
         .container {
-            text-align: center; /* Center text alignment */
-            padding: 20px; /* Padding around the container */
-            background-color: #f9f9f9; /* Light background color for contrast */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            max-width: 800px; /* Max width for the container */
-            margin: auto; /* Center the container on the page */
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
         }
 
         h1, h2 {
-            margin-bottom: 20px; /* Space below headings */
-            color: #2980b9; /* Blue color for headings */
+            margin-bottom: 15px;
+            color: #2980b9;
+            font-size: 1.8em;
         }
 
         .summary-item {
-            font-size: 20px; /* Font size for summary items */
-            margin-bottom: 10px; /* Space below summary items */
-            color: #333; /* Dark text color for readability */
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
         }
 
         table {
-            width: 100%; /* Full width for the table */
-            border-collapse: collapse; /* Remove double borders */
-            margin-top: 20px; /* Space above the table */
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1em;
         }
 
         th, td {
-            border: 1px solid #ccc; /* Light gray border for table cells */
-            padding: 10px; /* Padding inside cells */
-            text-align: left; /* Left-align text */
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
         }
 
         th {
-            background-color: #2980b9; /* Blue background for header */
-            color: white; /* White text for header */
+            background-color: #2980b9;
+            color: white;
         }
 
         .candidate-image {
-            width: 50px; /* Set a fixed width for images */
-            height: auto; /* Maintain aspect ratio */
+            width: 50px;
+            height: auto;
+            border-radius: 50%;
         }
 
         .candidate-item {
-            margin: 10px 0; /* Space between candidate items */
-            color: #555; /* Slightly lighter color for candidate names */
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+
+            h1, h2 {
+                font-size: 1.6em;
+            }
+
+            .summary-item {
+                font-size: 16px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            .candidate-image {
+                width: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1, h2 {
+                font-size: 1.4em;
+            }
+
+            .summary-item {
+                font-size: 14px;
+            }
+
+            .candidate-item {
+                font-size: 0.9em;
+            }
+
+            .candidate-image {
+                width: 30px;
+            }
+
+            table, th, td {
+                padding: 8px;
+            }
+
+            /* Stack table rows on smaller screens */
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tr {
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                text-align: left;
+            }
         }
     </style>
 </head>
@@ -80,15 +168,15 @@
                     <% position.candidates.each do |candidate| %>
                         <% percentage = position.total_votes.positive? ? (candidate.votes.count.to_f / position.total_votes * 100).round(2) : 0 %>
                         <tr>
-                            <td><%= position.name %></td>
-                            <td class="candidate-item"><%= candidate.name %></td>
-                            <td><%= candidate.votes.count %></td>
-                            <td><%= percentage %>%</td>
-                            <td>
+                            <td data-label="Position"><%= position.name %></td>
+                            <td data-label="Candidate" class="candidate-item"><%= candidate.name %></td>
+                            <td data-label="Votes"><%= candidate.votes.count %></td>
+                            <td data-label="Vote Percentage"><%= percentage %>%</td>
+                            <td data-label="Image">
                                 <% if candidate.image.attached? %>
                                     <%= image_tag candidate.image, alt: "#{candidate.name}'s image", class: "candidate-image" %>
                                 <% else %>
-                                    <p>No image available</p> <!-- Fallback message if no image is present -->
+                                    <p>No image available</p>
                                 <% end %>
                             </td>
                         </tr>
