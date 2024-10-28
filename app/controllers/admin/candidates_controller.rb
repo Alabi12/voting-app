@@ -44,8 +44,6 @@ class Admin::CandidatesController < ApplicationController
 
   def set_candidate
     @candidate = Candidate.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to admin_candidates_path, alert: "Candidate not found."
   end
 
   def set_positions

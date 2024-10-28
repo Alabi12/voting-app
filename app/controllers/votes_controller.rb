@@ -20,6 +20,7 @@ class VotesController < ApplicationController
     end
   end
 
+
   private
 
   def ensure_voter_role
