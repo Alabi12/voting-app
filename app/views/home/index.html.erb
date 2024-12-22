@@ -14,15 +14,15 @@
         <%= link_to 'Manage Positions', admin_positions_path, class: 'action-link' %>
         <%= link_to 'Add Candidate', new_admin_candidate_path, class: 'action-link' %>
         <%= link_to 'View Admin Summary', admin_votes_summary_path, class: 'action-link' %>
-     <%= link_to 'Reset Votes', admin_reset_votes_path, method: :delete, data: { confirm: "Are you sure you want to reset all votes?"},  class: 'action-link' %>
+     <%# <%= link_to 'Reset Votes', admin_reset_votes_path, method: :delete, data: { confirm: "Are you sure you want to reset all votes?"},  class: 'action-link' %>
     <% else %>
       <p>Cast your vote here:</p>
       <%= link_to 'Vote Now', positions_path, class: 'action-link' %>
     <% end %>
   <% else %>
     <p>Please log in to access the platform.</p>
-    <%= link_to 'Log In', new_user_session_path, class: 'action-link' %>
-    <%= link_to 'Sign Up', new_user_registration_path, class: 'action-link' %>
+    <%# <%= link_to 'Log In', new_user_session_path, class: 'action-link' %>
+    <%# <%= link_to 'Sign Up', new_user_registration_path, class: 'action-link' %> 
   <% end %>
 </div>
 
