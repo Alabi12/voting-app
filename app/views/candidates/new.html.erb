@@ -21,69 +21,114 @@
 </div>
 
 <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Subtle background for better contrast */
+  }
+
   .form-title {
-    font-size: 24px;
+    font-size: 1.5rem; /* Responsive font size */
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
+    text-align: center; /* Center-align title */
+    color: #343a40; /* Darker shade for readability */
   }
 
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
+    padding: 0 1rem; /* Add padding for mobile spacing */
   }
 
   .form-label {
     display: block;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 0.5rem;
+    color: #495057; /* Subtle gray for labels */
   }
 
   .form-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da; /* Border matching Bootstrap's style */
+    border-radius: 0.25rem; /* Rounded corners */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Minimal shadow for depth */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .form-input:focus {
-    border-color: #007BFF;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle focus shadow */
+    outline: none; /* Remove default outline */
   }
 
   .form-actions {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center; /* Center-align button for mobile */
+    padding: 0 1rem; /* Add padding for mobile spacing */
   }
 
   .form-submit {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    background-color: #007bff; /* Primary button color */
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.25rem; /* Match input styling */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s ease;
   }
 
   .form-submit:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker shade on hover */
   }
 
   .back-link {
-    margin-top: 15px;
+    text-align: center; /* Center-align back link */
+    margin-top: 1.5rem;
   }
 
   .back-button {
-    color: #007BFF;
+    font-size: 0.9rem;
+    color: #007bff; /* Link color */
     text-decoration: none;
-    font-size: 14px;
+    transition: color 0.2s ease;
   }
 
   .back-button:hover {
+    color: #0056b3; /* Darker shade on hover */
     text-decoration: underline;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .form-title {
+      font-size: 1.25rem; /* Smaller font for small screens */
+    }
+
+    .form-input,
+    .form-submit {
+      font-size: 0.9rem; /* Adjust input and button sizes */
+      padding: 0.65rem 1rem;
+    }
+
+    .back-button {
+      font-size: 0.8rem; /* Adjust link size for small screens */
+    }
+  }
+
+  @media (max-width: 576px) {
+    .form-title {
+      font-size: 1.1rem; /* Smaller font for extra small screens */
+    }
+
+    .form-input,
+    .form-submit {
+      font-size: 0.85rem; /* Further adjustment */
+      padding: 0.5rem 0.75rem;
+    }
   }
 </style>
